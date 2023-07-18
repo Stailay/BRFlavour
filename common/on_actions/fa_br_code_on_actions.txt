@@ -1,0 +1,29 @@
+﻿# For on_actions launched by the code itself.
+
+# Root = Country
+on_half_yearly_pulse_country = {
+	events = {
+		br_ig_favour.2
+		br_ig_favour.3
+		br_ig_favour.4
+		br_ig_favour.5
+		br_ig_favour.8
+		br_ig_favour.9
+		br_ig_favour.10
+		br_ig_favour.11
+		br_ig_favour.14
+		br_ig_favour.15
+		br_ig_favour.16
+		br_ig_favour.17
+		br_ig_favour.18
+	}
+}
+
+on_monthly_pulse_country = {
+	events = {
+		br_ig_favour.6
+		br_ig_favour.7
+		br_ig_favour.12
+		br_ig_favour.18
+	}
+}

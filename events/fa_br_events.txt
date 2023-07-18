@@ -1,0 +1,2344 @@
+﻿namespace = brclaims
+
+# Brazil Claims Uruguay
+brclaims.1 = {
+	type = country_event
+	placement = root
+	title = brclaims.1.t
+	desc = brclaims.1.d
+	flavor = brclaims.1.f
+
+	duration = 3
+
+	icon = "gfx/interface/icons/generic_icons/secession_culture_possible.dds"
+	event_image = {
+		video = "gfx/event_pictures/unspecific_ruler_speaking_to_people.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/signed_contract" 
+
+	trigger = {
+		# triggered by br claim uruguay JE
+	}
+
+	immediate = {
+	}
+
+	option = {
+		name = brclaims.1.a
+		default_option = yes
+		if = {
+			limit = {
+				NOT = { owns_entire_state_region = STATE_URUGUAY
+				}
+			}
+			s:STATE_URUGUAY = {
+				add_claim = ROOT
+			}
+		}
+		set_global_variable = uruguay_claim_complete
+	}
+}
+
+namespace = br_ig_favour
+
+# ON GOING ACTION
+
+# AF happy = happy
+br_ig_favour.2 = {
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+		ROOT = c:BRZ
+		ig:ig_armed_forces = {
+			NOT = {
+				has_modifier = ig_af_fav_pos
+			}
+		}
+		ig:ig_armed_forces = {
+			ig_approval >= 10
+		}
+	}
+
+	immediate = {
+		add_journal_entry = {
+			type = je_br_ig_af_fav_pos1
+		}
+	}
+}
+# AF unhappy = unhappy
+br_ig_favour.3 = {
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+		ROOT = c:BRZ
+		ig:ig_armed_forces = {
+			NOR = {
+				has_modifier = ig_af_fav_neg
+				has_modifier = ig_af_fav_neg2
+				has_modifier = ig_af_fav_neg3
+			}
+		}
+		ig:ig_armed_forces = {
+			ig_approval <= -5
+		}
+	}
+
+	immediate = {
+		add_journal_entry = {
+			type = je_br_ig_af_fav_neg1
+		}
+	}
+}
+# AF ^ unhappy = less legit
+br_ig_favour.4 = {
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+		ROOT = c:BRZ
+		ig:ig_armed_forces = {
+				has_modifier = ig_af_fav_neg
+			}
+		ig:ig_armed_forces = {
+			ig_approval <= -5
+		}
+	}
+
+	immediate = {
+		add_journal_entry = {
+			type = je_br_ig_af_fav_neg2
+		}
+	}
+}
+# AF ^ unhappy = republic
+br_ig_favour.5 = {
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+		ROOT = c:BRZ
+		ig:ig_armed_forces = {
+				has_modifier = ig_af_fav_neg2
+			}
+		ig:ig_armed_forces = {
+			ig_approval <= -5
+		}
+	}
+
+	immediate = {
+		add_journal_entry = {
+			type = je_br_ig_af_fav_neg3
+		}
+	}
+}
+# AF + republic = normal favour
+br_ig_favour.6 = {
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+		ROOT = c:BRZ
+		NOT = {
+			has_law = law_type:law_monarchy
+		}
+		ig:ig_armed_forces = {
+			OR = {
+				has_modifier = ig_af_fav_neg
+				has_modifier = ig_af_fav_neg2
+				has_modifier = ig_af_fav_neg3
+			}
+		}
+	}
+
+	immediate = {
+		ig:ig_armed_forces = {
+			if = {
+				limit = {
+					has_modifier = ig_af_fav_neg
+				}
+				remove_modifier = ig_af_fav_neg
+			}
+			if = {
+				limit = {
+					has_modifier = ig_af_fav_neg2
+				}
+				remove_modifier = ig_af_fav_neg2
+			}
+			if = {
+				limit = {
+					has_modifier = ig_af_fav_neg3
+				}
+				remove_modifier = ig_af_fav_neg3
+			}
+		}
+		if = {
+			limit = {
+				has_modifier = fa_br_less_legit_af_1
+			}
+			remove_modifier = fa_br_less_legit_af_1
+		}
+		if = {
+			limit = {
+				has_modifier = fa_br_less_legit_af_2
+			}
+			remove_modifier = fa_br_less_legit_af_2
+		}
+	}
+}
+# AF Burocrats always
+br_ig_favour.7 = {
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+		ig:ig_armed_forces = {
+			has_modifier = ig_af_fav_pos1
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				NOT = {
+					has_law = law_type:law_elected_bureaucrats
+				}
+				ig:ig_petty_bourgeoisie = {
+					has_modifier = ig_generic_fav_neg_1
+					has_modifier = ig_generic_clout_neg_1
+				}
+			}
+			ig:ig_petty_bourgeoisie = {
+				remove_modifier = ig_generic_fav_neg_1
+				remove_modifier = ig_generic_clout_neg_1
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_law = law_type:law_appointed_bureaucrats
+				}
+				ig:ig_intelligentsia = {
+					has_modifier = ig_generic_fav_neg_1
+					has_modifier = ig_generic_clout_neg_1
+				}
+			}
+			ig:ig_intelligentsia = {
+				remove_modifier = ig_generic_fav_neg_1
+				remove_modifier = ig_generic_clout_neg_1
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_law = law_type:law_hereditary_bureaucrats
+				}
+				ig:ig_landowners = {
+					has_modifier = ig_generic_fav_neg_1
+					has_modifier = ig_generic_clout_neg_1
+				}
+			}
+			ig:ig_landowners = {
+				remove_modifier = ig_generic_fav_neg_1
+				remove_modifier = ig_generic_clout_neg_1
+			}
+		}
+		if = {
+			limit = {
+				has_law = law_type:law_elected_bureaucrats
+				ig:ig_petty_bourgeoisie = {
+					NOT = {
+						has_modifier = ig_generic_fav_neg_1
+						has_modifier = ig_generic_clout_neg_1
+					}
+				}
+			}
+			ig:ig_petty_bourgeoisie = {
+				add_modifier = ig_generic_fav_neg_1
+				add_modifier = ig_generic_clout_neg_1
+			}
+		}
+		if = {
+			limit = {
+				has_law = law_type:law_appointed_bureaucrats
+				ig:ig_intelligentsia = {
+					NOT = {
+						has_modifier = ig_generic_fav_neg_1
+						has_modifier = ig_generic_clout_neg_1
+					}
+				}
+			}
+			ig:ig_intelligentsia = {
+				add_modifier = ig_generic_fav_neg_1
+				add_modifier = ig_generic_clout_neg_1
+			}
+		}
+		if = {
+			limit = {
+				has_law = law_type:law_hereditary_bureaucrats
+				ig:ig_landowners = {
+					NOT = {
+						has_modifier = ig_generic_fav_neg_1
+						has_modifier = ig_generic_clout_neg_1
+					}
+				}
+			}
+			ig:ig_landowners = {
+				add_modifier = ig_generic_fav_neg_1
+				add_modifier = ig_generic_clout_neg_1
+			}
+		}
+	}
+}
+# LAND happy = happy
+br_ig_favour.8 = {
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+		ROOT = c:BRZ
+		ig:ig_landowners = {
+			NOT = {
+				has_modifier = ig_land_fav_pos
+			}
+		}
+		ig:ig_landowners = {
+			ig_approval >= 10
+		}
+	}
+
+	immediate = {
+		add_journal_entry = {
+			type = je_br_ig_land_fav_pos1
+		}
+	}
+}
+# LAND unhappy = unhappy
+br_ig_favour.9 = {
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+		ROOT = c:BRZ
+		ig:ig_landowners = {
+			NOR = {
+				has_modifier = ig_land_fav_neg
+				has_modifier = ig_land_fav_neg2
+				has_modifier = ig_land_fav_neg3
+			}
+		}
+		ig:ig_landowners = {
+			ig_approval <= -5
+		}
+	}
+
+	immediate = {
+		add_journal_entry = {
+			type = je_br_ig_land_fav_neg1
+		}
+	}
+}
+# LAND ^ unhappy = less legit
+br_ig_favour.10 = {
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+		ROOT = c:BRZ
+		ig:ig_landowners = {
+				has_modifier = ig_land_fav_neg
+			}
+		ig:ig_landowners = {
+			ig_approval <= -5
+		}
+	}
+
+	immediate = {
+		add_journal_entry = {
+			type = je_br_ig_land_fav_neg2
+		}
+	}
+}
+# LAND ^ unhappy = republic
+br_ig_favour.11 = {
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+		ROOT = c:BRZ
+		ig:ig_landowners = {
+				has_modifier = ig_land_fav_neg2
+			}
+		ig:ig_landowners = {
+			ig_approval <= -5
+		}
+	}
+
+	immediate = {
+		add_journal_entry = {
+			type = je_br_ig_land_fav_neg3
+		}
+	}
+}
+# LAND + republic = normal favour
+br_ig_favour.12 = {
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+		ROOT = c:BRZ
+		NOT = {
+			has_law = law_type:law_monarchy
+		}
+		ig:ig_landowners = {
+			OR = {
+				has_modifier = ig_land_fav_neg
+				has_modifier = ig_land_fav_neg2
+				has_modifier = ig_land_fav_neg3
+			}
+		}
+	}
+
+	immediate = {
+		ig:ig_armed_forces = {
+			if = {
+				limit = {
+					has_modifier = ig_land_fav_neg
+				}
+				remove_modifier = ig_land_fav_neg
+			}
+			if = {
+				limit = {
+					has_modifier = ig_land_fav_neg2
+				}
+				remove_modifier = ig_land_fav_neg2
+			}
+			if = {
+				limit = {
+					has_modifier = ig_land_fav_neg3
+				}
+				remove_modifier = ig_land_fav_neg3
+			}
+		}
+		if = {
+			limit = {
+				has_modifier = fa_br_less_legit_land_1
+			}
+			remove_modifier = fa_br_less_legit_land_1
+		}
+		if = {
+			limit = {
+				has_modifier = fa_br_less_legit_land_2
+			}
+			remove_modifier = fa_br_less_legit_land_2
+		}
+	}
+}
+# CHURCH happy = happy
+br_ig_favour.14 = {
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+		ROOT = c:BRZ
+		ig:ig_devout = {
+			NOT = {
+				has_modifier = ig_chu_fav_pos
+			}
+		}
+		ig:ig_devout = {
+			ig_approval >= 10
+		}
+	}
+
+	immediate = {
+		add_journal_entry = {
+			type = je_br_ig_chu_fav_pos1
+		}
+	}
+}
+# CHURCH unhappy = unhappy
+br_ig_favour.15 = {
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+		ROOT = c:BRZ
+		ig:ig_devout = {
+			NOR = {
+				has_modifier = ig_chu_fav_neg
+				has_modifier = ig_chu_fav_neg2
+				has_modifier = ig_chu_fav_neg3
+			}
+		}
+		ig:ig_devout = {
+			ig_approval <= -5
+		}
+	}
+
+	immediate = {
+		add_journal_entry = {
+			type = je_br_ig_chu_fav_neg1
+		}
+	}
+}
+# CHURCH ^ unhappy = less legit
+br_ig_favour.16 = {
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+		ROOT = c:BRZ
+		ig:ig_devout = {
+				has_modifier = ig_chu_fav_neg
+			}
+		ig:ig_devout = {
+			ig_approval <= -5
+		}
+	}
+
+	immediate = {
+		add_journal_entry = {
+			type = je_br_ig_chu_fav_neg2
+		}
+	}
+}
+# CHURCH ^ unhappy = republic
+br_ig_favour.17 = {
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+		ROOT = c:BRZ
+		ig:ig_devout = {
+				has_modifier = ig_chu_fav_neg2
+			}
+		ig:ig_devout = {
+			ig_approval <= -5
+		}
+	}
+
+	immediate = {
+		add_journal_entry = {
+			type = je_br_ig_chu_fav_neg3
+		}
+	}
+}
+# CHURCH + republic = normal favour
+br_ig_favour.18 = {
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+		ROOT = c:BRZ
+		NOT = {
+			has_law = law_type:law_monarchy
+		}
+		ig:ig_devout = {
+			OR = {
+				has_modifier = ig_chu_fav_neg
+				has_modifier = ig_chu_fav_neg2
+				has_modifier = ig_chu_fav_neg3
+			}
+		}
+	}
+
+	immediate = {
+		ig:ig_devout = {
+			if = {
+				limit = {
+					has_modifier = ig_chu_fav_neg
+				}
+				remove_modifier = ig_chu_fav_neg
+			}
+			if = {
+				limit = {
+					has_modifier = ig_chu_fav_neg2
+				}
+				remove_modifier = ig_chu_fav_neg2
+			}
+			if = {
+				limit = {
+					has_modifier = ig_chu_fav_neg3
+				}
+				remove_modifier = ig_chu_fav_neg3
+			}
+		}
+		if = {
+			limit = {
+				has_modifier = fa_br_less_legit_chu_1
+			}
+			remove_modifier = fa_br_less_legit_chu_1
+		}
+		if = {
+			limit = {
+				has_modifier = fa_br_less_legit_chu_2
+			}
+			remove_modifier = fa_br_less_legit_chu_2
+		}
+	}
+}
+
+
+# NOT ON GOING
+
+# giv/take happy
+br_ig_favour.19 = {
+	type = country_event
+	placement = ROOT
+
+	title = br_ig_favour.19.t
+	desc = br_ig_favour.19.d
+	flavor = br_ig_favour.19.f
+
+	duration = 1
+
+	event_image = {
+		video = "gfx/event_pictures/europenorthamerica_capitalists_meeting.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/europenorthamerica/capitalists_meeting"
+
+	icon = "gfx/interface/icons/generic_icons/approval_icon.dds"
+
+	trigger = {
+	}
+	
+	immediate = {
+	}
+
+	option = {
+		name = br_ig_favour.19.a
+		trigger = {
+			NOT = {
+				has_variable = land_fav_pos_1_var_temp
+			}
+		}
+		if = {
+			limit = {
+				authority >= 0
+				NOT = {
+					has_modifier = land_authority_neg_1
+					has_modifier = ig_land_decision_domestic_2
+				}
+			}
+			add_modifier = land_authority_neg_1
+			add_modifier = {
+				name = ig_land_decision_domestic_2
+				multiplier = money_amount_multiplier_very_small
+			}
+			ig:ig_landowners = {
+				add_modifier = ig_generic_fav_pos_1
+			}
+			set_variable = {
+				name = land_fav_pos_1_var_temp
+				months = 6
+			}
+		}
+		else = {
+			ig:ig_landowners = {
+				remove_modifier = ig_generic_fav_pos_1
+			}
+			remove_modifier = ig_land_decision_domestic_2
+			remove_modifier = land_authority_neg_1
+		}
+	}
+	option = {
+		name = br_ig_favour.19.b
+		trigger = {
+			NOT = {
+				has_variable = af_fav_pos_1_var_temp
+			}
+		}
+		if = {
+			limit = {
+				authority >= 0
+				ig:ig_armed_forces = {
+					NOT = {
+						has_modifier = ig_generic_fav_pos_1
+					}
+				}
+				NOT = {
+					has_modifier = af_authority_neg_1
+					has_modifier = ig_af_decision_domestic_2
+				}
+			}
+			add_modifier = af_authority_neg_1
+			add_modifier = {
+				name = ig_af_decision_domestic_2
+				multiplier = money_amount_multiplier_very_small
+			}
+			ig:ig_armed_forces = {
+				add_modifier = ig_generic_fav_pos_1
+			}
+			set_variable = {
+				name = af_fav_pos_1_var_temp
+				months = 6
+			}
+		}
+		else = {
+			ig:ig_armed_forces = {
+				remove_modifier = ig_generic_fav_pos_1
+			}
+			remove_modifier = ig_af_decision_domestic_2
+			remove_modifier = af_authority_neg_1
+		}
+	}
+	option = {
+		name = br_ig_favour.19.c
+		trigger = {
+			NOT = {
+				has_variable = chu_fav_pos_1_var_temp
+			}
+		}
+		if = {
+			limit = {
+				authority >= 0
+				ig:ig_devout = {
+					NOT = {
+						has_modifier = ig_generic_fav_pos_1
+					}
+				}
+				NOT = {
+					has_modifier = chu_authority_neg_1
+					has_modifier = ig_church_decision_domestic_2
+				}
+			}
+			add_modifier = chu_authority_neg_1
+			add_modifier = {
+				name = ig_church_decision_domestic_2
+				multiplier = money_amount_multiplier_very_small
+			}
+			ig:ig_devout = {
+				add_modifier = ig_generic_fav_pos_1
+			}
+			set_variable = {
+				name = chu_fav_pos_1_var_temp
+				months = 6
+			}
+		}
+		else = {
+			ig:ig_devout = {
+				remove_modifier = ig_generic_fav_pos_1
+			}
+			remove_modifier = ig_church_decision_domestic_2
+			remove_modifier = chu_authority_neg_1
+		}
+	}
+}
+
+namespace = warsbr
+
+# War on Uruguay
+warsbr.1 = {
+	type = country_event
+	placement = ROOT
+	title = warsbr.1.t
+	desc = warsbr.1.d
+	flavor = warsbr.1.f
+
+	duration = 3
+
+	event_image = {
+		video = "gfx/event_pictures/europenorthamerica_before_the_battle.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/europenorthamerica/before_the_battle"
+
+	icon = "gfx/interface/icons/generic_icons/secession_culture_ongoing.dds"
+
+	trigger = {
+	}
+
+	immediate = {
+		set_global_variable = brazil_war_done
+	}
+
+	option = {
+		name = warsbr.1.a
+		default_option = yes
+		create_diplomatic_play = {
+			name = reconquista_da_cisplatina
+			war = yes
+			type = dp_annex_war
+			
+			target_state = s:STATE_URUGUAY.region_state:URU
+		}
+		ai_chance = {
+			base = 50
+		}
+		custom_tooltip = warsbrctt1
+	}
+	option = {
+		name = warsbr.1.b
+		create_diplomatic_play = {
+			name = reconquista_da_cisplatina
+			war = no
+			type = dp_annex_war
+			
+			target_state = s:STATE_URUGUAY.region_state:URU
+		}
+		ai_chance = {
+			base = 50
+		}
+		custom_tooltip = warsbrctt2
+	}
+}
+
+
+
+namespace = ig_af_br
+
+# Give Armed Forces arms industry
+ig_af_br.1 = {
+	type = country_event
+	placement = scope:arms_industry_br_state
+
+	title = ig_af_br.1.t
+	desc = ig_af_br.1.d
+	flavor = ig_af_br.1.f
+
+	duration = 3
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_signed_contract.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/signed_contract"
+
+	icon = "gfx/interface/icons/production_method_icons/unused/military_priority.dds"
+
+	trigger = {
+	}
+	
+	immediate = {
+		random_scope_state = {
+			limit = {
+				is_incorporated = yes
+				has_building = building_urban_center
+				NOT = {
+					has_building = building_arms_industry
+				}
+			}
+			save_scope_as = arms_industry_br_state
+		}
+	}
+
+	option = {
+		default_option = yes
+		name = ig_af_br.1.a
+		scope:arms_industry_br_state = {
+			create_building={
+ 				building="building_arms_industry"
+ 				level=1
+ 				reserves=1
+ 			}
+		}
+		ig:ig_armed_forces = {
+			add_modifier = arms_built
+		}
+		ig:ig_armed_forces = {
+			add_modifier = {
+				name = af_fav_1
+				months = 100
+			}
+		}
+		add_treasury = -350000
+		set_global_variable = br_arms_done
+		set_global_variable = {
+			name = br_timer_1
+			months = 240
+		}
+	}
+	option = {
+		name = ig_af_br.1.b
+		remove_variable = decision_arms_fac_taken
+	}
+}
+# 5y happy = 15 years happy
+ig_af_br.2 = {
+	type = country_event
+	placement = scope:br_ig_favored
+
+	title = ig_af_br.2.t
+	desc = ig_af_br.2.d
+	flavor = ig_af_br.2.f
+
+	duration = 1
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_military_parade.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/military_parade"
+
+	icon = "gfx/interface/icons/generic_icons/approval_icon.dds"
+
+	trigger = {
+	}
+	
+	immediate = {
+		ig:ig_armed_forces = {
+			leader = { 
+				save_scope_as = br_ig_favored
+			}
+		}
+	}
+
+	option = {
+		default_option = yes
+		name = ig_af_br.2.a
+		if = {
+			limit = {
+				ig:ig_armed_forces = {
+					NOT = {
+						has_modifier = ig_af_fav_neg
+						has_modifier = ig_af_fav_neg2
+					}
+				}
+			}
+			ig:ig_armed_forces = {
+				add_modifier = {
+					name = ig_af_fav_pos
+					months = 90
+				}
+			}
+		}
+		if = {
+			limit = {
+				ig:ig_armed_forces = {
+					has_modifier = ig_af_fav_neg
+				}
+			}
+			ig:ig_armed_forces = {
+				remove_modifier = ig_af_fav_neg
+			}
+		}
+		if = {
+			limit = {
+				ig:ig_armed_forces = {
+					has_modifier = ig_af_fav_neg2
+				}
+			}
+			ig:ig_armed_forces = {
+				remove_modifier = ig_af_fav_neg2
+			}
+			ig:ig_armed_forces = {
+				add_modifier = {
+					name = ig_af_fav_neg
+					months = 90
+				}
+			}
+			remove_modifier = fa_br_less_legit_af_1
+		}
+	}
+}
+# 5y unhappy = unhappy
+ig_af_br.3 = {
+	type = country_event
+	placement = scope:br_ig_favored
+
+	title = ig_af_br.3.t
+	desc = ig_af_br.3.d
+	flavor = ig_af_br.3.f
+
+	duration = 1
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_politicians_arguing.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/leader_speaking_to_a_group_of_people"
+
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+
+	trigger = {
+	}
+	
+	immediate = {
+		ig:ig_armed_forces = {
+			leader = { 
+				save_scope_as = br_ig_favored
+			}
+		}
+	}
+
+	option = {
+		default_option = yes
+		name = ig_af_br.3.a
+		if = {
+			limit = {
+				ig:ig_armed_forces = {
+					NOT = {
+						has_modifier = ig_af_fav_pos
+					}
+				}
+			}
+			ig:ig_armed_forces = {
+				add_modifier = {
+					name = ig_af_fav_neg
+					months = 180
+				}
+			}
+		}
+		if = {
+			limit = {
+				ig:ig_armed_forces = {
+					has_modifier = ig_af_fav_pos
+				}
+			}
+			ig:ig_armed_forces = {
+				remove_modifier = ig_af_fav_pos
+			}
+		}
+	}
+}
+# 2y ^ unhappy = less legit
+ig_af_br.4 = {
+	type = country_event
+	placement = scope:br_ig_favored
+
+	title = ig_af_br.4.t
+	desc = ig_af_br.4.d
+	flavor = ig_af_br.4.f
+
+	duration = 1
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_politicians_arguing.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/leader_speaking_to_a_group_of_people"
+
+	icon = "gfx/interface/icons/alert_icons/unused/low_legitimacy.dds"
+
+	trigger = {
+	}
+	
+	immediate = {
+		ig:ig_armed_forces = {
+			leader = { 
+				save_scope_as = br_ig_favored
+			}
+		}
+	}
+
+	option = {
+		default_option = yes
+		name = ig_af_br.4.a
+		ig:ig_armed_forces = {
+			remove_modifier = ig_af_fav_neg
+		}
+		ig:ig_armed_forces = {
+			add_modifier = ig_af_fav_neg2
+		}
+		add_modifier = fa_br_less_legit_af_1
+	}
+}
+# 2y ^ unhappy = republic
+ig_af_br.5 = {
+	type = country_event
+	placement = scope:br_ig_favored
+
+	title = ig_af_br.5.t
+	desc = ig_af_br.5.d
+	flavor = ig_af_br.5.f
+
+	duration = 1
+
+	event_image = {
+		video = "gfx/event_pictures/southamerica_election.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/leader_speaking_to_a_group_of_people"
+
+	icon = "gfx/interface/icons/ideology_icons/republican.dds"
+
+	trigger = {
+	}
+	
+	immediate = {
+		ig:ig_armed_forces = {
+			leader = { 
+				save_scope_as = br_ig_favored
+			}
+		}
+	}
+
+	option = {
+		default_option = yes
+		name = ig_af_br.5.a
+		ig:ig_armed_forces = {
+			remove_modifier = ig_af_fav_neg2
+		}
+		ig:ig_armed_forces = {
+			add_modifier = ig_af_fav_neg3
+		}
+		ig:ig_armed_forces = {
+			add_ideology = ideology_ig_af_antimon
+		}
+		remove_modifier = fa_br_less_legit_af_1
+		add_modifier = fa_br_less_legit_af_2
+	}
+}
+
+
+
+namespace = ig_land_br
+
+# 5y happy = 15 years happy
+ig_land_br.2 = {
+	type = country_event
+	placement = scope:br_ig_favored
+
+	title = ig_land_br.2.t
+	desc = ig_land_br.2.d
+	flavor = ig_land_br.2.f
+
+	duration = 1
+
+	event_image = {
+		video = "gfx/event_pictures/southamerica_aristocrats.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/europenorthamerica/capitalists_meeting"
+
+	icon = "gfx/interface/icons/generic_icons/approval_icon.dds"
+
+	trigger = {
+	}
+	
+	immediate = {
+		ig:ig_landowners = {
+			leader = { 
+				save_scope_as = br_ig_favored
+			}
+		}
+	}
+
+	option = {
+		default_option = yes
+		name = ig_land_br.2.a
+		if = {
+			limit = {
+				ig:ig_landowners = {
+					NOT = {
+						has_modifier = ig_land_fav_neg
+						has_modifier = ig_land_fav_neg2
+					}
+				}
+			}
+			ig:ig_landowners = {
+				add_modifier = {
+					name = ig_land_fav_pos
+					months = 90
+				}
+			}
+		}
+		if = {
+			limit = {
+				ig:ig_landowners = {
+					has_modifier = ig_land_fav_neg
+				}
+			}
+			ig:ig_landowners = {
+				remove_modifier = ig_land_fav_neg
+			}
+		}
+		if = {
+			limit = {
+				ig:ig_landowners = {
+					has_modifier = ig_land_fav_neg2
+				}
+			}
+			ig:ig_landowners = {
+				remove_modifier = ig_land_fav_neg2
+			}
+			ig:ig_landowners = {
+				add_modifier = {
+					name = ig_land_fav_neg
+					months = 90
+				}
+			}
+			remove_modifier = fa_br_less_legit_land_1
+		}
+	}
+}
+# 5y unhappy = unhappy
+ig_land_br.3 = {
+	type = country_event
+	placement = scope:br_ig_favored
+
+	title = ig_land_br.3.t
+	desc = ig_land_br.3.d
+	flavor = ig_land_br.3.f
+
+	duration = 1
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_politicians_arguing.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/leader_speaking_to_a_group_of_people"
+
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+
+	trigger = {
+	}
+	
+	immediate = {
+		ig:ig_landowners = {
+			leader = { 
+				save_scope_as = br_ig_favored
+			}
+		}
+	}
+
+	option = {
+		default_option = yes
+		name = ig_land_br.3.a
+		if = {
+			limit = {
+				ig:ig_landowners = {
+					NOT = {
+						has_modifier = ig_land_fav_pos
+					}
+				}
+			}
+			ig:ig_landowners = {
+				add_modifier = {
+					name = ig_land_fav_neg
+					months = 180
+				}
+			}
+		}
+		if = {
+			limit = {
+				ig:ig_landowners = {
+					has_modifier = ig_land_fav_pos
+				}
+			}
+			ig:ig_landowners = {
+				remove_modifier = ig_land_fav_pos
+			}
+		}
+	}
+}
+# 2y ^ unhappy = less legit
+ig_land_br.4 = {
+	type = country_event
+	placement = scope:br_ig_favored
+
+	title = ig_land_br.4.t
+	desc = ig_land_br.4.d
+	flavor = ig_land_br.4.f
+
+	duration = 1
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_politicians_arguing.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/leader_speaking_to_a_group_of_people"
+
+	icon = "gfx/interface/icons/alert_icons/unused/low_legitimacy.dds"
+
+	trigger = {
+	}
+	
+	immediate = {
+		ig:ig_landowners = {
+			leader = { 
+				save_scope_as = br_ig_favored
+			}
+		}
+	}
+
+	option = {
+		default_option = yes
+		name = ig_land_br.4.a
+		ig:ig_landowners = {
+			remove_modifier = ig_land_fav_neg
+		}
+		ig:ig_landowners = {
+			add_modifier = ig_land_fav_neg2
+		}
+		add_modifier = fa_br_less_legit_land_1
+	}
+}
+# 2y ^ unhappy = republic
+ig_land_br.5 = {
+	type = country_event
+	placement = scope:br_ig_favored
+
+	title = ig_land_br.5.t
+	desc = ig_land_br.5.d
+	flavor = ig_land_br.5.f
+
+	duration = 1
+
+	event_image = {
+		video = "gfx/event_pictures/southamerica_election.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/leader_speaking_to_a_group_of_people"
+
+	icon = "gfx/interface/icons/ideology_icons/republican.dds"
+
+	trigger = {
+	}
+	
+	immediate = {
+		ig:ig_landowners = {
+			leader = { 
+				save_scope_as = br_ig_favored
+			}
+		}
+	}
+
+	option = {
+		default_option = yes
+		name = ig_land_br.5.a
+		ig:ig_landowners = {
+			remove_modifier = ig_land_fav_neg2
+		}
+		ig:ig_landowners = {
+			add_modifier = ig_land_fav_neg3
+		}
+		ig:ig_landowners = {
+			add_ideology = ideology_ig_land_antimon
+		}
+		remove_modifier = fa_br_less_legit_land_1
+		add_modifier = fa_br_less_legit_land_2
+	}
+}
+
+
+
+namespace = ig_devout_br
+
+# 5y happy = 15 years happy
+ig_devout_br.2 = {
+	type = country_event
+	placement = scope:br_ig_favored
+
+	title = ig_devout_br.2.t
+	desc = ig_devout_br.2.d
+	flavor = ig_devout_br.2.f
+
+	duration = 1
+
+	event_image = {
+		video = "gfx/event_pictures/southamerica_christianity.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/europenorthamerica/judaism"
+
+	icon = "gfx/interface/icons/generic_icons/approval_icon.dds"
+
+	trigger = {
+	}
+	
+	immediate = {
+		ig:ig_devout = {
+			leader = { 
+				save_scope_as = br_ig_favored
+			}
+		}
+	}
+
+	option = {
+		default_option = yes
+		name = ig_devout_br.2.a
+		if = {
+			limit = {
+				ig:ig_devout = {
+					NOT = {
+						has_modifier = ig_chu_fav_neg
+						has_modifier = ig_chu_fav_neg2
+					}
+				}
+			}
+			ig:ig_devout = {
+				add_modifier = {
+					name = ig_chu_fav_pos
+					months = 90
+				}
+			}
+		}
+		if = {
+			limit = {
+				ig:ig_devout = {
+					has_modifier = ig_chu_fav_neg
+				}
+			}
+			ig:ig_devout = {
+				remove_modifier = ig_chu_fav_neg
+			}
+		}
+		if = {
+			limit = {
+				ig:ig_devout = {
+					has_modifier = ig_chu_fav_neg2
+				}
+			}
+			ig:ig_devout = {
+				remove_modifier = ig_chu_fav_neg2
+			}
+			ig:ig_devout = {
+				add_modifier = {
+					name = ig_chu_fav_neg
+					months = 90
+				}
+			}
+			remove_modifier = fa_br_less_legit_chu_1
+		}
+	}
+}
+# 5y unhappy = unhappy
+ig_devout_br.3 = {
+	type = country_event
+	placement = scope:br_ig_favored
+
+	title = ig_devout_br.3.t
+	desc = ig_devout_br.3.d
+	flavor = ig_devout_br.3.f
+
+	duration = 1
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_politicians_arguing.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/leader_speaking_to_a_group_of_people"
+
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+
+	trigger = {
+	}
+	
+	immediate = {
+		ig:ig_devout = {
+			leader = { 
+				save_scope_as = br_ig_favored
+			}
+		}
+	}
+
+	option = {
+		default_option = yes
+		name = ig_devout_br.3.a
+		if = {
+			limit = {
+				ig:ig_devout = {
+					NOT = {
+						has_modifier = ig_chu_fav_pos
+					}
+				}
+			}
+			ig:ig_devout = {
+				add_modifier = {
+					name = ig_chu_fav_neg
+					months = 180
+				}
+			}
+		}
+		if = {
+			limit = {
+				ig:ig_devout = {
+					has_modifier = ig_chu_fav_pos
+				}
+			}
+			ig:ig_devout = {
+				remove_modifier = ig_chu_fav_pos
+			}
+		}
+	}
+}
+# 2y ^ unhappy = less legit
+ig_devout_br.4 = {
+	type = country_event
+	placement = scope:br_ig_favored
+
+	title = ig_devout_br.4.t
+	desc = ig_devout_br.4.d
+	flavor = ig_devout_br.4.f
+
+	duration = 1
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_politicians_arguing.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/leader_speaking_to_a_group_of_people"
+
+	icon = "gfx/interface/icons/alert_icons/unused/low_legitimacy.dds"
+
+	trigger = {
+	}
+	
+	immediate = {
+		ig:ig_devout = {
+			leader = { 
+				save_scope_as = br_ig_favored
+			}
+		}
+	}
+
+	option = {
+		default_option = yes
+		name = ig_devout_br.4.a
+		ig:ig_devout = {
+			remove_modifier = ig_chu_fav_neg
+		}
+		ig:ig_devout = {
+			add_modifier = ig_chu_fav_neg2
+		}
+		add_modifier = fa_br_less_legit_chu_1
+	}
+}
+# 2y ^ unhappy = republic
+ig_devout_br.5 = {
+	type = country_event
+	placement = scope:br_ig_favored
+
+	title = ig_devout_br.5.t
+	desc = ig_devout_br.5.d
+	flavor = ig_devout_br.5.f
+
+	duration = 1
+
+	event_image = {
+		video = "gfx/event_pictures/southamerica_election.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/leader_speaking_to_a_group_of_people"
+
+	icon = "gfx/interface/icons/ideology_icons/republican.dds"
+
+	trigger = {
+	}
+	
+	immediate = {
+		ig:ig_devout = {
+			leader = { 
+				save_scope_as = br_ig_favored
+			}
+		}
+	}
+
+	option = {
+		default_option = yes
+		name = ig_devout_br.5.a
+		ig:ig_devout = {
+			remove_modifier = ig_chu_fav_neg2
+		}
+		ig:ig_devout = {
+			add_modifier = ig_chu_fav_neg3
+		}
+		ig:ig_devout = {
+			add_ideology = ideology_ig_chu_antimon
+		}
+		remove_modifier = fa_br_less_legit_chu_1
+		add_modifier = fa_br_less_legit_chu_2
+	}
+}
+
+
+
+namespace = vasquez
+
+# Contact From Brazil
+vasquez.1 = {
+	type = country_event
+	placement = ROOT
+
+	title = vasquez.1.t
+	desc = vasquez.1.d
+	flavor = vasquez.1.f
+
+	duration = 3
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_signed_contract.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/signed_contract"
+
+	icon = "gfx/interface/icons/event_icons/event_trade.dds"
+
+	trigger = {
+	}
+
+	immediate = {
+		c:BRZ = {
+			save_scope_as = brz_scope
+		}
+		s:STATE_AMAZONAS.region_state:CLM = {
+			save_scope_as = amazonas_scope
+		}
+	}
+
+	option = {
+		name = vasquez.1.a
+		default_option = yes
+		if = {
+			limit = {
+				c:BRZ = {
+					var:brz_colombia_dip = 3
+				}
+			}
+			create_diplomatic_pact = {
+				country = c:BRZ
+				type = defensive_pact
+			}
+			create_diplomatic_pact = {
+				country = c:BRZ
+				type = trade_agreement
+			}
+		}
+		else_if = {
+			limit = {
+				c:BRZ = {
+					var:brz_colombia_dip = 2
+				}
+			}
+			create_diplomatic_pact = {
+				country = c:BRZ
+				type = trade_agreement
+			}
+		}
+		else = {
+			limit = {
+				c:BRZ = {
+					var:brz_colombia_dip = 1
+				}
+			}
+		}	
+		c:BRZ = {
+			trigger_event = { id = vasquez.2 days = 0 popup = yes }
+		}
+		show_as_tooltip = {
+			s:STATE_AMAZONAS.region_state:CLM = {
+				set_state_owner = c:BRZ
+			}
+		}
+		change_relations = {
+			country = c:BRZ
+			value = 10
+		}
+		ai_chance = {
+			base = -30
+			modifier = {
+				add = 15
+				has_truce_with = c:ECU
+			}
+			modifier = {
+				add = 15
+				has_truce_with = c:PEU
+			}
+			modifier = {
+				add = 15
+				has_truce_with = c:BOL
+			}
+			modifier = {
+				add = 15
+				has_truce_with = c:VNZ
+			}
+			modifier = {
+				add = -20
+				has_truce_with = c:BRZ
+			}
+			modifier = {
+				add = 20
+				has_diplomatic_pact = {
+					who = c:ECU
+					type = rivalry 
+				}
+			}
+			modifier = {
+				add = 20
+				has_diplomatic_pact = {
+					who = c:PEU
+					type = rivalry 
+				}
+			}
+			modifier = {
+				add = 20
+				has_diplomatic_pact = {
+					who = c:BOL
+					type = rivalry 
+				}
+			}
+			modifier = {
+				add = 20
+				has_diplomatic_pact = {
+					who = c:VNZ
+					type = rivalry 
+				}
+			}
+			modifier = {
+				add = -200
+				has_diplomatic_pact = {
+					who = c:BRZ
+					type = rivalry 
+				}
+			}
+			modifier = {
+				add = 5
+				c:ECU = {
+					relations:root >= relations_threshold:amicable
+				}
+			}
+			modifier = {
+				add = 5
+				c:PEU = {
+					relations:root = relations_threshold:poor
+				}
+			}
+			modifier = {
+				add = 5
+				c:BOL = {
+					relations:root = relations_threshold:poor
+				}
+			}
+			modifier = {
+				add = 5
+				c:VNZ = {
+					relations:root = relations_threshold:poor
+				}
+			}
+			modifier = {
+				add = -5
+				c:BRZ = {
+					relations:root = relations_threshold:poor
+				}
+			}
+			modifier = {
+				add = 10
+				c:ECU = {
+					relations:root = relations_threshold:cold
+				}
+			}
+			modifier = {
+				add = 10
+				c:PEU = {
+					relations:root = relations_threshold:cold
+				}
+			}
+			modifier = {
+				add = 10
+				c:BOL = {
+					relations:root = relations_threshold:cold
+				}
+			}
+			modifier = {
+				add = 10
+				c:VNZ = {
+					relations:root = relations_threshold:cold
+				}
+			}
+			modifier = {
+				add = -25
+				c:BRZ = {
+					relations:root = relations_threshold:cold
+				}
+			}
+			modifier = {
+				add = 20
+				c:ECU = {
+					relations:root = relations_threshold:hostile
+				}
+			}
+			modifier = {
+				add = 20
+				c:PEU = {
+					relations:root = relations_threshold:hostile
+				}
+			}
+			modifier = {
+				add = 20
+				c:BOL = {
+					relations:root = relations_threshold:hostile
+				}
+			}
+			modifier = {
+				add = 20
+				c:VNZ = {
+					relations:root = relations_threshold:hostile
+				}
+			}
+			modifier = {
+				add = -100
+				c:BRZ = {
+					relations:root = relations_threshold:hostile
+				}
+			}
+			modifier = {
+				add = 35
+				c:BRZ = {
+					relations:root = relations_threshold:amicable
+				}
+			}
+			modifier = {
+				add = 75
+				c:BRZ = {
+					relations:root = relations_threshold:friendly
+				}
+			}
+			modifier = {
+				add = 10
+				c:BRZ = {
+					relations:root = relations_threshold:cordial
+				}
+			}
+			modifier = {
+				add = 50
+				in_default = yes
+			}
+			modifier = {
+				add = 25
+				taking_loans = yes
+			}
+			modifier = {
+				add = 65
+				owes_obligation_to = c:BRZ
+			}
+		}
+	}
+	option = {
+		name = vasquez.1.b
+		c:BRZ = {
+			trigger_event = { id = vasquez.3 days = 0 popup = yes }
+		}
+		change_relations = {
+			country = c:BRZ
+			value = -20
+		}
+		ai_chance = {
+		}
+	}
+}
+# The Agreement
+vasquez.2 = {
+	type = country_event
+	placement = ROOT
+
+	title = vasquez.2.t
+	desc = vasquez.2.d
+	flavor = vasquez.2.f
+
+	duration = 3
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_signed_contract.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/signed_contract"
+
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	trigger = {
+	}
+
+	immediate = {
+		c:CLM = {
+			save_scope_as = colombia_scope
+		}
+		s:STATE_AMAZONAS.region_state:CLM = {
+			save_scope_as = amazonas_scope
+		}
+	}
+
+	option = {
+		name = vasquez.2.a
+		default_option = yes
+		
+		s:STATE_AMAZONAS.region_state:CLM = {
+			set_state_owner = c:BRZ
+		}
+		change_relations = {
+			country = c:CLM
+			value = 10
+		}
+	}
+}
+# Failed Agreement
+vasquez.3 = {
+	type = country_event
+	placement = ROOT
+
+	title = vasquez.3.t
+	desc = vasquez.3.d
+	flavor = vasquez.3.f
+
+	duration = 3
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_signed_contract.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/signed_contract"
+
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	trigger = {
+	}
+
+	immediate = {
+		c:CLM = {
+			save_scope_as = colombia_scope
+		}
+		s:STATE_AMAZONAS.region_state:CLM = {
+			save_scope_as = amazonas_scope
+		}
+	}
+
+	option = {
+		name = vasquez.3.a
+		default_option = yes
+		s:STATE_AMAZONAS = {
+			add_claim = ROOT
+		}
+		change_relations = {
+			country = c:CLM
+			value = -20
+		}
+	}
+}
+# Making Contact
+vasquez.4 = {
+	type = country_event
+	placement = ROOT
+
+	title = vasquez.4.t
+	desc = vasquez.4.d
+	flavor = vasquez.4.f
+
+	duration = 3
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_signed_contract.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/signed_contract"
+
+	icon = "gfx/interface/icons/event_icons/event_map.dds"
+
+	trigger = {
+	}
+
+	immediate = {
+		c:CLM = {
+			save_scope_as = colombia_scope
+		}
+		s:STATE_AMAZONAS.region_state:CLM = {
+			save_scope_as = amazonas_scope
+		}
+	}
+
+	option = {
+		name = vasquez.4.a
+		custom_tooltip = vasquez.4.tt1
+		set_variable = {
+			name = brz_colombia_dip
+			value = 1
+		}
+		c:CLM = {
+			trigger_event = {
+				id = vasquez.1
+				days = 0
+				popup = yes
+			}
+		}
+	}
+	option = {
+		name = vasquez.4.b
+		default_option = yes
+		custom_tooltip = vasquez.4.tt2
+		set_variable = {
+			name = brz_colombia_dip
+			value = 2
+		}
+		c:CLM = {
+			trigger_event = {
+				id = vasquez.1
+				days = 0
+				popup = yes
+			}
+		}
+	}
+	option = {
+		name = vasquez.4.c
+		custom_tooltip = vasquez.4.tt3
+		set_variable = {
+			name = brz_colombia_dip
+			value = 3
+		}
+		c:CLM = {
+			trigger_event = {
+				id = vasquez.1
+				days = 0
+				popup = yes
+			}
+		}
+	}
+}
+
+namespace = ayachuco
+
+# An Offer for Amazon
+ayachuco.1 = {
+	type = country_event
+	placement = ROOT
+
+	title = ayachuco.1.t
+	desc = ayachuco.1.d
+	flavor = ayachuco.1.f
+
+	duration = 3
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_signed_contract.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/signed_contract"
+
+	icon = "gfx/interface/icons/event_icons/event_trade.dds"
+
+	trigger = {
+	}
+
+	immediate = {
+		c:BRZ = {
+			save_scope_as = brz_scope
+		}
+		s:STATE_AMAZONAS.region_state:BOL = {
+			save_scope_as = fa_amazon_scope
+		}
+	}
+
+	option = {
+		name = ayachuco.1.a
+		default_option = yes
+		if = {
+			limit = {
+				c:BRZ = {
+					var:brz_bolivia_money = 3
+				}
+			}
+			add_modifier = {
+				name = ayachuco_treaty_bol_big_money
+				months = normal_modifier_time
+				is_decaying = no
+			}
+		}
+		else_if = {
+			limit = {
+				c:BRZ = {
+					var:brz_bolivia_money = 2
+				}
+			}
+			add_modifier = {
+				name = ayachuco_treaty_bol_medium_money
+				months = normal_modifier_time
+				is_decaying = no
+			}
+		}
+		else = {
+			add_modifier = {
+				name = ayachuco_treaty_bol_small_money
+				months = normal_modifier_time
+				is_decaying = no
+			}
+		}
+		c:BRZ = {
+			trigger_event = { id = ayachuco.2 days = 0 popup = yes }
+		}
+		show_as_tooltip = {
+			s:STATE_AMAZONAS.region_state:BOL = {
+				set_state_owner = c:BRZ
+			}
+		}
+		change_relations = {
+			country = c:BRZ
+			value = 10
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = 50
+				c:BRZ = {
+					var:brz_bolivia_money = 3
+				}
+			}
+			modifier = {
+				add = 25
+				c:BRZ = {
+					var:brz_bolivia_money = 2
+				}
+				NOT = {
+					c:BRZ = {
+						var:brz_bolivia_money = 3
+					}
+				}
+			}
+			modifier = {
+				add = 50
+				in_default = yes
+			}
+			modifier = {
+				add = 25
+				taking_loans = yes
+			}
+		}
+	}
+	option = {
+		name = ayachuco.1.b
+		c:BRZ = {
+			trigger_event = { id = ayachuco.3 days = 0 popup = yes }
+		}
+		change_relations = {
+			country = c:BRZ
+			value = -20
+		}
+		ai_chance = {
+			base = 50
+		}
+	}
+}
+# The ayachuco treaty
+ayachuco.2 = {
+	type = country_event
+	placement = ROOT
+
+	title = ayachuco.2.t
+	desc = ayachuco.2.d
+	flavor = ayachuco.2.f
+
+	duration = 3
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_signed_contract.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/signed_contract"
+
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	trigger = {
+	}
+
+	immediate = {
+		c:BOL = {
+			save_scope_as = bolivia_scope
+		}
+		s:STATE_AMAZONAS.region_state:BOL = {
+			save_scope_as = fa_amazon_scope
+		}
+	}
+
+	option = {
+		name = ayachuco.2.a
+		default_option = yes
+		if = {
+			limit = {
+				var:brz_bolivia_money = 3
+			}
+			add_modifier = {
+				name = ayachuco_treaty_brz_money
+				multiplier = money_amount_multiplier_medium
+				months = normal_modifier_time
+			}
+		}
+		else_if = {
+			limit = {
+				var:brz_bolivia_money = 2
+			}
+			add_modifier = {
+				name = ayachuco_treaty_brz_money
+				multiplier = money_amount_multiplier_small
+				months = normal_modifier_time
+			}
+		}
+		else = {
+			add_modifier = {
+				name = ayachuco_treaty_brz_money
+				multiplier = money_amount_multiplier_very_small
+				months = normal_modifier_time
+			}
+		}
+		s:STATE_AMAZONAS.region_state:BOL = {
+			set_state_owner = c:BRZ
+		}
+		change_relations = {
+			country = c:BOL
+			value = 10
+		}
+	}
+}
+# Failed treaty
+ayachuco.3 = {
+	type = country_event
+	placement = ROOT
+
+	title = ayachuco.3.t
+	desc = ayachuco.3.d
+	flavor = ayachuco.3.f
+
+	duration = 3
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_signed_contract.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/signed_contract"
+
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	trigger = {
+	}
+
+	immediate = {
+		c:BOL = {
+			save_scope_as = bolivia_scope
+		}
+		s:STATE_AMAZONAS.region_state:BOL = {
+			save_scope_as = fa_amazon_scope
+		}
+	}
+
+	option = {
+		name = ayachuco.3.a
+		default_option = yes
+		s:STATE_AMAZONAS = {
+			add_claim = ROOT
+		}
+		change_relations = {
+			country = c:BOL
+			value = -30
+		}
+	}
+}
+# Making an Offer
+ayachuco.4 = {
+	type = country_event
+	placement = ROOT
+
+	title = ayachuco.4.t
+	desc = ayachuco.4.d
+	flavor = ayachuco.4.f
+
+	duration = 3
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_signed_contract.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/signed_contract"
+
+	icon = "gfx/interface/icons/event_icons/event_map.dds"
+
+	trigger = {
+	}
+
+	immediate = {
+		c:BOL = {
+			save_scope_as = bolivia_scope
+		}
+		s:STATE_AMAZONAS.region_state:BOL = {
+			save_scope_as = fa_amazon_scope
+		}
+	}
+
+	option = {
+		name = ayachuco.4.a
+		custom_tooltip = ayachuco.4.tt1 # 3 million over a year
+		set_variable = {
+			name = brz_bolivia_money
+			value = 3
+		}
+		c:BOL = {
+			trigger_event = {
+				id = ayachuco.1
+				days = 0
+				popup = yes
+			}
+		}
+	}
+	option = {
+		name = ayachuco.4.b
+		default_option = yes
+		custom_tooltip = ayachuco.4.tt2 # 2 million over a year
+		set_variable = {
+			name = brz_bolivia_money
+			value = 2
+		}
+		c:BOL = {
+			trigger_event = {
+				id = ayachuco.1
+				days = 0
+				popup = yes
+			}
+		}
+	}
+	option = {
+		name = ayachuco.4.c
+		custom_tooltip = ayachuco.4.tt3 # 1 million over a year
+		set_variable = {
+			name = brz_bolivia_money
+			value = 1
+		}
+		c:BOL = {
+			trigger_event = {
+				id = ayachuco.1
+				days = 0
+				popup = yes
+			}
+		}
+	}
+}
+
+

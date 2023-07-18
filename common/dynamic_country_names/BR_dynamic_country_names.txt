@@ -1,0 +1,586 @@
+﻿###brazil####
+BRZ = {
+		
+		dynamic_country_name = {
+			name = dyn_c_brazil_absolutist_monarchy
+			adjective = BRZ_ADJ
+			is_main_tag_only = yes
+			priority = 20
+	
+			trigger = {
+				exists = scope:actor
+				scope:actor = { 
+					has_law = law_type:law_monarchy
+					has_law = law_type:law_autocracy
+				}
+			}
+		}
+		
+		dynamic_country_name = {
+			name = dyn_c_brazil_monarchy
+			adjective = BRZ_ADJ
+	
+			is_main_tag_only = yes
+			priority = 20
+	
+			trigger = {
+				exists = scope:actor
+				scope:actor = { 
+					has_law = law_type:law_monarchy
+					has_law = law_type:law_oligarchy
+				}
+			}
+		}
+		
+		dynamic_country_name = {
+			name = dyn_c_brazil_monarchy
+			adjective = BRZ_ADJ
+	
+			is_main_tag_only = yes
+			priority = 20
+	
+			trigger = {
+				exists = scope:actor
+				scope:actor = { 
+					has_law = law_type:law_monarchy
+					has_law = law_type:law_landed_voting
+				}
+			}
+		}
+		
+		dynamic_country_name = {
+			name = dyn_c_brazil_monarchy
+			adjective = BRZ_ADJ
+	
+			is_main_tag_only = yes
+			priority = 20
+	
+			trigger = {
+				exists = scope:actor
+				scope:actor = { 
+					has_law = law_type:law_monarchy
+					has_law = law_type:law_wealth_voting
+				}
+			}
+		}
+		
+		dynamic_country_name = {
+			name = dyn_c_brazil_monarchy
+			adjective = BRZ_ADJ
+	
+			is_main_tag_only = yes
+			priority = 20
+	
+			trigger = {
+				exists = scope:actor
+				scope:actor = { 
+					has_law = law_type:law_monarchy
+					has_law = law_type:law_census_voting
+				}
+			}
+		}
+		
+		dynamic_country_name = {
+			name = dyn_c_brazil_monarchy
+			adjective = BRZ_ADJ
+	
+			is_main_tag_only = yes
+			priority = 20
+	
+			trigger = {
+				exists = scope:actor
+				scope:actor = { 
+					has_law = law_type:law_monarchy
+					has_law = law_type:law_universal_suffrage
+				}
+			}
+		}
+	
+		dynamic_country_name = {
+			name = dyn_c_brazil_monarchy
+			adjective = BRZ_ADJ
+	
+			is_main_tag_only = yes
+			priority = 20
+	
+			trigger = {
+				exists = scope:actor
+				scope:actor = { 
+					has_law = law_type:law_monarchy
+					has_law = law_type:law_single_party_state
+				}
+			}
+		}
+		
+		#############republic#############
+		
+		dynamic_country_name = {
+			name = dyn_c_brazil_republic
+			adjective = BRZ_ADJ
+	
+			is_main_tag_only = yes
+			priority = 20
+	
+			trigger = {
+				exists = scope:actor
+				scope:actor = { 
+					has_law = law_type:law_presidential_republic
+					has_law = law_type:law_oligarchy
+				}
+			}
+		}
+	
+			dynamic_country_name = {
+			name = dyn_c_brazil_republic
+			adjective = BRZ_ADJ
+	
+			is_main_tag_only = yes
+			priority = 20
+	
+			trigger = {
+				exists = scope:actor
+				scope:actor = { 
+					has_law = law_type:law_presidential_republic
+					has_law = law_type:law_landed_voting
+				}
+			}
+		}
+		
+		dynamic_country_name = {
+			name = dyn_c_brazil_republic
+			adjective = BRZ_ADJ
+	
+			is_main_tag_only = yes
+			priority = 20
+	
+			trigger = {
+				exists = scope:actor
+				scope:actor = { 
+					has_law = law_type:law_presidential_republic
+					has_law = law_type:law_wealth_voting
+				}
+			}
+		}
+		
+		dynamic_country_name = {
+			name = dyn_c_brazil_republic
+			adjective = BRZ_ADJ
+	
+			is_main_tag_only = yes
+			priority = 20
+	
+			trigger = {
+				exists = scope:actor
+				scope:actor = { 
+					has_law = law_type:law_presidential_republic
+					has_law = law_type:law_census_voting
+				}
+			}
+		}
+		
+		dynamic_country_name = {
+			name = dyn_c_brazil_republic
+			adjective = BRZ_ADJ
+	
+			is_main_tag_only = yes
+			priority = 20
+	
+			trigger = {
+				exists = scope:actor
+				scope:actor = { 
+					has_law = law_type:law_presidential_republic
+					has_law = law_type:law_universal_suffrage
+				}
+			}
+		}
+	
+		dynamic_country_name = {
+			name = dyn_c_brazil_republic
+			adjective = BRZ_ADJ
+	
+			is_main_tag_only = yes
+			priority = 20
+	
+			trigger = {
+				exists = scope:actor
+				scope:actor = { 
+					has_law = law_type:law_presidential_republic
+					has_law = law_type:law_single_party_state
+				}
+			}
+		}
+		
+		dynamic_country_name = {
+			name = dyn_c_brazil_republic
+			adjective = BRZ_ADJ
+	
+			is_main_tag_only = yes
+			priority = 20
+	
+			trigger = {
+				exists = scope:actor
+				scope:actor = { 
+					has_law = law_type:law_parliamentary_republic
+					has_law = law_type:law_oligarchy
+				}
+			}
+		}
+		
+		dynamic_country_name = {
+			name = dyn_c_brazil_republic
+			adjective = BRZ_ADJ
+	
+			is_main_tag_only = yes
+			priority = 20
+	
+			trigger = {
+				exists = scope:actor
+				scope:actor = { 
+					has_law = law_type:law_parliamentary_republic
+					has_law = law_type:law_landed_voting
+				}
+			}
+		}
+		
+		dynamic_country_name = {
+			name = dyn_c_brazil_republic
+			adjective = BRZ_ADJ
+	
+			is_main_tag_only = yes
+			priority = 20
+	
+			trigger = {
+				exists = scope:actor
+				scope:actor = { 
+					has_law = law_type:law_parliamentary_republic
+					has_law = law_type:law_wealth_voting
+				}
+			}
+		}
+		
+		dynamic_country_name = {
+			name = dyn_c_brazil_republic
+			adjective = BRZ_ADJ
+	
+			is_main_tag_only = yes
+			priority = 20
+	
+			trigger = {
+				exists = scope:actor
+				scope:actor = { 
+					has_law = law_type:law_parliamentary_republic
+					has_law = law_type:law_census_voting
+				}
+			}
+		}
+		
+		dynamic_country_name = {
+			name = dyn_c_brazil_republic
+			adjective = BRZ_ADJ
+	
+			is_main_tag_only = yes
+			priority = 20
+	
+			trigger = {
+				exists = scope:actor
+				scope:actor = { 
+					has_law = law_type:law_parliamentary_republic
+					has_law = law_type:law_universal_suffrage
+				}
+			}
+		}
+	
+		dynamic_country_name = {
+			name = dyn_c_brazil_republic
+			adjective = BRZ_ADJ
+	
+			is_main_tag_only = yes
+			priority = 20
+	
+			trigger = {
+				exists = scope:actor
+				scope:actor = { 
+					has_law = law_type:law_parliamentary_republic
+					has_law = law_type:law_single_party_state
+				}
+			}
+		}
+		
+		#############dictatorship#############
+		
+		dynamic_country_name = {
+			name = dyn_c_brazil_dictatorship
+			adjective = BRZ_ADJ
+	
+			is_main_tag_only = yes
+			priority = 20
+	
+			trigger = {
+				exists = scope:actor
+				scope:actor = { 
+					has_law = law_type:law_parliamentary_republic
+					has_law = law_type:law_autocracy
+				}
+			}
+		}
+		
+		dynamic_country_name = {
+			name = dyn_c_brazil_dictatorship
+			adjective = BRZ_ADJ
+	
+			is_main_tag_only = yes
+			priority = 20
+	
+			trigger = {
+				exists = scope:actor
+				scope:actor = { 
+					has_law = law_type:law_presidential_republic
+					has_law = law_type:law_autocracy
+				}
+			}
+		}
+		
+		######theocratic#####
+		
+		dynamic_country_name = {
+			name = dyn_c_brazil_theocratic
+			adjective = BRZ_ADJ
+	
+			is_main_tag_only = yes
+			priority = 20
+	
+			trigger = {
+				exists = scope:actor
+				scope:actor = { 
+					has_law = law_type:law_theocracy
+					has_law = law_type:law_autocracy
+				}
+			}
+		}
+		
+		dynamic_country_name = {
+			name = dyn_c_brazil_theocraticvote
+			adjective = BRZ_ADJ
+	
+			is_main_tag_only = yes
+			priority = 20
+	
+			trigger = {
+				exists = scope:actor
+				scope:actor = { 
+					has_law = law_type:law_theocracy
+					has_law = law_type:law_oligarchy
+				}
+			}
+		}
+		
+		dynamic_country_name = {
+			name = dyn_c_brazil_theocraticvote
+			adjective = BRZ_ADJ
+	
+			is_main_tag_only = yes
+			priority = 20
+	
+			trigger = {
+				exists = scope:actor
+				scope:actor = { 
+					has_law = law_type:law_theocracy
+					has_law = law_type:law_landed_voting
+				}
+			}
+		}
+		
+		dynamic_country_name = {
+			name = dyn_c_brazil_theocraticvote
+			adjective = BRZ_ADJ
+	
+			is_main_tag_only = yes
+			priority = 20
+	
+			trigger = {
+				exists = scope:actor
+				scope:actor = { 
+					has_law = law_type:law_theocracy
+					has_law = law_type:law_wealth_voting
+				}
+			}
+		}
+		
+		dynamic_country_name = {
+			name = dyn_c_brazil_theocraticvote
+			adjective = BRZ_ADJ
+	
+			is_main_tag_only = yes
+			priority = 20
+	
+			trigger = {
+				exists = scope:actor
+				scope:actor = { 
+					has_law = law_type:law_theocracy
+					has_law = law_type:law_census_voting
+				}
+			}
+		}
+		
+		dynamic_country_name = {
+			name = dyn_c_brazil_theocraticvote
+			adjective = BRZ_ADJ
+	
+			is_main_tag_only = yes
+			priority = 20
+	
+			trigger = {
+				exists = scope:actor
+				scope:actor = { 
+					has_law = law_type:law_theocracy
+					has_law = law_type:law_universal_suffrage
+				}
+			}
+		}
+	
+		dynamic_country_name = {
+			name = dyn_c_brazil_theocraticvote
+			adjective = BRZ_ADJ
+	
+			is_main_tag_only = yes
+			priority = 20
+	
+			trigger = {
+				exists = scope:actor
+				scope:actor = { 
+					has_law = law_type:law_theocracy
+					has_law = law_type:law_single_party_state
+				}
+			}
+		}
+		
+		######communist#####
+		
+		dynamic_country_name = {
+			name = dyn_c_brazil_communist
+			adjective = BRZ_ADJ
+	
+			is_main_tag_only = yes
+			priority = 20
+	
+			trigger = {
+				exists = scope:actor
+				scope:actor = { 
+					has_law = law_type:law_council_republic
+					has_law = law_type:law_autocracy
+				}
+			}
+		}
+		
+		dynamic_country_name = {
+			name = dyn_c_brazil_communistvote
+			adjective = BRZ_ADJ
+	
+			is_main_tag_only = yes
+			priority = 20
+	
+			trigger = {
+				exists = scope:actor
+				scope:actor = { 
+					has_law = law_type:law_council_republic
+					has_law = law_type:law_oligarchy
+				}
+			}
+		}
+		
+		dynamic_country_name = {
+			name = dyn_c_brazil_communistvote
+			adjective = BRZ_ADJ
+	
+			is_main_tag_only = yes
+			priority = 20
+	
+			trigger = {
+				exists = scope:actor
+				scope:actor = { 
+					has_law = law_type:law_council_republic
+					has_law = law_type:law_landed_voting
+				}
+			}
+		}
+		
+		dynamic_country_name = {
+			name = dyn_c_brazil_communistvote
+			adjective = BRZ_ADJ
+	
+			is_main_tag_only = yes
+			priority = 20
+	
+			trigger = {
+				exists = scope:actor
+				scope:actor = { 
+					has_law = law_type:law_council_republic
+					has_law = law_type:law_wealth_voting
+				}
+			}
+		}
+		
+		dynamic_country_name = {
+			name = dyn_c_brazil_communistvote
+			adjective = BRZ_ADJ
+	
+			is_main_tag_only = yes
+			priority = 20
+	
+			trigger = {
+				exists = scope:actor
+				scope:actor = { 
+					has_law = law_type:law_council_republic
+					has_law = law_type:law_census_voting
+				}
+			}
+		}
+		
+		dynamic_country_name = {
+			name = dyn_c_brazil_communistvote
+			adjective = BRZ_ADJ
+	
+			is_main_tag_only = yes
+			priority = 20
+	
+			trigger = {
+				exists = scope:actor
+				scope:actor = { 
+					has_law = law_type:law_council_republic
+					has_law = law_type:law_universal_suffrage
+				}
+			}
+		}
+	
+		dynamic_country_name = {
+			name = dyn_c_brazil_communistvote
+			adjective = BRZ_ADJ
+	
+			is_main_tag_only = yes
+			priority = 20
+	
+			trigger = {
+				exists = scope:actor
+				scope:actor = { 
+					has_law = law_type:law_council_republic
+					has_law = law_type:law_single_party_state
+				}
+			}
+		}
+		
+		dynamic_country_name = {
+			name = dyn_c_brazil_anarchy
+			adjective = BRZ_ADJ
+	
+			is_main_tag_only = yes
+			priority = 20
+	
+			trigger = {
+				exists = scope:actor
+				scope:actor = { 
+					has_law = law_type:law_anarchy
+				}
+			}
+		}
+	
+	}

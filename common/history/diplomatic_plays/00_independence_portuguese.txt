@@ -1,0 +1,17 @@
+﻿DIPLOMATIC_PLAYS = {
+	c:POR = {
+		create_diplomatic_play = {
+			name = indepedence_or_death
+			target_country = c:BRZ
+			war = yes
+			
+			type = dp_annex_war
+
+			add_war_goal = {
+				holder = c:BRZ
+				type = independence
+				target_country = c:POR
+			}
+		}			
+	}
+}

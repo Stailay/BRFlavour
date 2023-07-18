@@ -1,0 +1,1751 @@
+﻿je_br_claim_uruguay = {
+	icon = "gfx/interface/icons/event_icons/event_map.dds"
+
+	is_shown_when_inactive = {
+	}
+
+	possible = {
+	}
+
+	immediate = {
+		set_variable = {
+			name = uru_claim_var
+			value = 0
+		}
+	}
+	on_monthly_pulse = {
+		effect = {
+			if = {
+				limit = {
+					ig:ig_armed_forces = {
+						ig_clout >= 0.12
+						ig_approval >= 5
+						is_in_government = yes
+					}
+					has_insurrectionary_interest_groups = no
+					is_at_war = no
+					owns_entire_state_region = STATE_RIO_DE_JANEIRO
+					owns_entire_state_region = STATE_RIO_GRANDE_DO_SUL
+					OR = {
+						c:USA = {
+							relations:root >= relations_threshold:amicable
+						}
+						c:FRA = {
+							relations:root >= relations_threshold:amicable
+						}
+						c:GBR = {
+							relations:root >= relations_threshold:amicable
+						}
+					}
+				}
+				change_variable = {
+					name = uru_claim_var
+					add = 1
+				}
+			}
+		}
+	}
+
+	complete = {
+		# If-else clause to avoid errors because of missing variable before JE activates
+		trigger_if = {
+			limit = { exists = var:uru_claim_var }
+			scope:journal_entry = { is_goal_complete = yes }
+		}
+		trigger_else = {
+			custom_tooltip = je_br_claim_uruguay_goal
+		}
+		ig:ig_armed_forces = {
+			ig_clout >= 0.15
+			ig_approval >= 5
+			is_in_government = yes
+		}
+		has_insurrectionary_interest_groups = no
+		is_at_war = no
+		owns_entire_state_region = STATE_RIO_DE_JANEIRO
+		owns_entire_state_region = STATE_RIO_GRANDE_DO_SUL
+		OR = {
+			c:USA = {
+				relations:root >= relations_threshold:amicable
+			}		
+			c:FRA = {
+				relations:root >= relations_threshold:amicable
+			}
+			c:GBR = {
+				relations:root >= relations_threshold:amicable
+			}
+		}
+	}
+
+	on_complete = {
+		set_variable = uruguay_claim_complete
+		trigger_event = {
+			id = brclaims.1
+		}
+	}
+
+	current_value = {
+		value = root.var:uru_claim_var
+	}
+
+	goal_add_value = {
+		value = 12
+	}
+
+	progressbar = yes
+
+	weight = 10000
+	should_be_pinned_by_default = yes
+}
+
+# +10 happy = happy
+je_br_ig_af_fav_pos1 = {
+	icon = "gfx/interface/icons/generic_icons/approval_icon.dds"
+
+	is_shown_when_inactive = {
+	}
+
+	possible = {
+	}
+
+	immediate = {
+		set_variable = {
+			name = ig_af_fav_pos1_var
+			value = 1
+		}
+	}
+	on_monthly_pulse = {
+		effect = {
+			if = {
+				limit = {
+					ig:ig_armed_forces = {
+						ig_approval >= 10
+					}
+				}
+				change_variable = {
+					name = ig_af_fav_pos1_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_armed_forces = {
+						ig_approval >= 15
+					}
+				}
+				change_variable = {
+					name = ig_af_fav_pos1_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_armed_forces = {
+						ig_approval < 5
+					}
+				}
+				change_variable = {
+					name = ig_af_fav_pos1_var
+					subtract = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_armed_forces = {
+						ig_approval <= 0
+					}
+				}
+				change_variable = {
+					name = ig_af_fav_pos1_var
+					subtract = 2
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_armed_forces = {
+						ig_approval <= -5
+					}
+				}
+				change_variable = {
+					name = ig_af_fav_pos1_var
+					subtract = 3
+				}
+			}
+		}
+	}
+
+	complete = {
+		# If-else clause to avoid errors because of missing variable before JE activates
+		trigger_if = {
+			limit = { exists = var:ig_af_fav_pos1_var }
+			scope:journal_entry = { is_goal_complete = yes }
+		}
+		trigger_else = {
+			custom_tooltip = je_br_ig_af_fav_pos1_goal
+		}
+		ig:ig_armed_forces = {
+			ig_approval >= 10
+		}
+	}
+
+	on_complete = {
+		trigger_event = {
+			id = ig_af_br.2
+		}
+	}
+
+	current_value = {
+		value = root.var:ig_af_fav_pos1_var
+	}
+
+	goal_add_value = {
+		value = 120
+	}
+	
+	fail = {
+		custom_tooltip = {
+			text = pos1_var_fail
+			var:ig_af_fav_pos1_var < 0
+		}
+	}
+	
+	timeout = 5000
+
+	progressbar = yes
+
+	weight = 10000
+	should_be_pinned_by_default = yes
+}
+# <5 unhappy = unhappy
+je_br_ig_af_fav_neg1 = {
+	icon = "gfx/interface/icons/generic_icons/disapproval_icon.dds"
+
+	is_shown_when_inactive = {
+	}
+
+	possible = {
+	}
+
+	immediate = {
+		set_variable = {
+			name = ig_af_fav_neg1_var
+			value = 1
+		}
+	}
+	on_monthly_pulse = {
+		effect = {
+			if = {
+				limit = {
+					ig:ig_armed_forces = {
+						ig_approval <= -5
+					}
+				}
+				change_variable = {
+					name = ig_af_fav_neg1_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_armed_forces = {
+						ig_approval <= -10
+					}
+				}
+				change_variable = {
+					name = ig_af_fav_neg1_var
+					add = 3
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_armed_forces = {
+						ig_approval <= -16
+					}
+				}
+				change_variable = {
+					name = ig_af_fav_neg1_var
+					add = 5
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_armed_forces = {
+						ig_approval >= 1
+					}
+				}
+				change_variable = {
+					name = ig_af_fav_neg1_var
+					subtract = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_armed_forces = {
+						ig_approval >= 5
+					}
+				}
+				change_variable = {
+					name = ig_af_fav_neg1_var
+					subtract = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_armed_forces = {
+						ig_approval >= 10
+					}
+				}
+				change_variable = {
+					name = ig_af_fav_neg1_var
+					subtract = 3
+				}
+			}
+		}
+	}
+
+	complete = {
+		# If-else clause to avoid errors because of missing variable before JE activates
+		trigger_if = {
+			limit = { exists = var:ig_af_fav_neg1_var }
+			scope:journal_entry = { is_goal_complete = yes }
+		}
+		trigger_else = {
+			custom_tooltip = je_br_ig_af_fav_neg1_goal
+		}
+		ig:ig_armed_forces = {
+			ig_approval <= -5
+		}
+	}
+
+	on_complete = {
+		trigger_event = {
+			id = ig_af_br.3
+		}
+	}
+
+	current_value = {
+		value = root.var:ig_af_fav_neg1_var
+	}
+
+	goal_add_value = {
+		value = 60
+	}
+	
+	fail = {
+		custom_tooltip = {
+			text = neg1_var_fail
+			var:ig_af_fav_neg1_var < 0
+		}
+	}
+
+	timeout = 3000
+	
+	progressbar = yes
+
+	weight = 10000
+	should_be_pinned_by_default = yes
+}
+# ^2y unhappy = less legit
+je_br_ig_af_fav_neg2 = {
+	icon = "gfx/interface/icons/generic_icons/in_opposition_icon.dds"
+
+	is_shown_when_inactive = {
+	}
+
+	possible = {
+	}
+
+	immediate = {
+		set_variable = {
+			name = ig_af_fav_neg2_var
+			value = 4
+		}
+	}
+	on_monthly_pulse = {
+		effect = {
+			if = {
+				limit = {
+					ig:ig_armed_forces = {
+						ig_approval <= -5
+					}
+				}
+				change_variable = {
+					name = ig_af_fav_neg2_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_armed_forces = {
+						ig_approval <= -8
+					}
+				}
+				change_variable = {
+					name = ig_af_fav_neg2_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_armed_forces = {
+						ig_approval <= -10
+					}
+				}
+				change_variable = {
+					name = ig_af_fav_neg2_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_armed_forces = {
+						ig_approval <= -14
+					}
+				}
+				change_variable = {
+					name = ig_af_fav_neg2_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_armed_forces = {
+						ig_approval <= -16
+					}
+				}
+				change_variable = {
+					name = ig_af_fav_neg2_var
+					add = 2
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_armed_forces = {
+						ig_approval >= 1
+					}
+				}
+				change_variable = {
+					name = ig_af_fav_neg2_var
+					subtract = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_armed_forces = {
+						ig_approval >= 5
+					}
+				}
+				change_variable = {
+					name = ig_af_fav_neg2_var
+					subtract = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_armed_forces = {
+						ig_approval >= 10
+					}
+				}
+				change_variable = {
+					name = ig_af_fav_neg2_var
+					subtract = 3
+				}
+			}
+		}
+	}
+
+	complete = {
+		# If-else clause to avoid errors because of missing variable before JE activates
+		trigger_if = {
+			limit = { exists = var:ig_af_fav_neg2_var }
+			scope:journal_entry = { is_goal_complete = yes }
+		}
+		trigger_else = {
+			custom_tooltip = je_br_ig_af_fav_neg1_goal
+		}
+		ig:ig_armed_forces = {
+			ig_approval <= -5
+		}
+	}
+
+	on_complete = {
+		trigger_event = {
+			id = ig_af_br.4
+		}
+	}
+
+	current_value = {
+		value = root.var:ig_af_fav_neg2_var
+	}
+
+	goal_add_value = {
+		value = 45
+	}
+	
+	fail = {
+		custom_tooltip = {
+			text = neg1_var_fail
+			var:ig_af_fav_neg2_var < 0
+		}
+	}
+	
+	timeout = 1200
+	
+	progressbar = yes
+
+	weight = 10000
+	should_be_pinned_by_default = yes
+}
+# 2y ^ unhappy = republic
+je_br_ig_af_fav_neg3 = {
+	icon = "gfx/interface/icons/alert_icons/radicalizing.dds"
+
+	is_shown_when_inactive = {
+	}
+
+	possible = {
+	}
+
+	immediate = {
+		set_variable = {
+			name = ig_af_fav_neg3_var
+			value = 4
+		}
+	}
+	on_monthly_pulse = {
+		effect = {
+			if = {
+				limit = {
+					ig:ig_armed_forces = {
+						ig_approval <= -5
+					}
+				}
+				change_variable = {
+					name = ig_af_fav_neg3_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_armed_forces = {
+						ig_approval <= -8
+					}
+				}
+				change_variable = {
+					name = ig_af_fav_neg3_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_armed_forces = {
+						ig_approval <= -10
+					}
+				}
+				change_variable = {
+					name = ig_af_fav_neg3_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_armed_forces = {
+						ig_approval <= -14
+					}
+				}
+				change_variable = {
+					name = ig_af_fav_neg3_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_armed_forces = {
+						ig_approval <= -16
+					}
+				}
+				change_variable = {
+					name = ig_af_fav_neg3_var
+					add = 2
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_armed_forces = {
+						ig_approval >= 1
+					}
+				}
+				change_variable = {
+					name = ig_af_fav_neg3_var
+					subtract = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_armed_forces = {
+						ig_approval >= 5
+					}
+				}
+				change_variable = {
+					name = ig_af_fav_neg3_var
+					subtract = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_armed_forces = {
+						ig_approval >= 10
+					}
+				}
+				change_variable = {
+					name = ig_af_fav_neg3_var
+					subtract = 3
+				}
+			}
+		}
+	}
+
+	complete = {
+		# If-else clause to avoid errors because of missing variable before JE activates
+		trigger_if = {
+			limit = { exists = var:ig_af_fav_neg3_var }
+			scope:journal_entry = { is_goal_complete = yes }
+		}
+		trigger_else = {
+			custom_tooltip = je_br_ig_af_fav_neg1_goal
+		}
+		ig:ig_armed_forces = {
+			ig_approval <= -5
+		}
+	}
+
+	on_complete = {
+		trigger_event = {
+			id = ig_af_br.5
+		}
+	}
+
+	current_value = {
+		value = root.var:ig_af_fav_neg3_var
+	}
+
+	goal_add_value = {
+		value = 45
+	}
+	
+	fail = {
+		custom_tooltip = {
+			text = neg1_var_fail
+			var:ig_af_fav_neg3_var < 0
+		}
+	}
+	
+	timeout = 1200
+	
+	progressbar = yes
+
+	weight = 10000
+	should_be_pinned_by_default = yes
+}
+
+
+# +10 happy = happy
+je_br_ig_land_fav_pos1 = {
+	icon = "gfx/interface/icons/generic_icons/approval_icon.dds"
+
+	is_shown_when_inactive = {
+	}
+
+	possible = {
+	}
+
+	immediate = {
+		set_variable = {
+			name = ig_land_fav_pos1_var
+			value = 1
+		}
+	}
+	on_monthly_pulse = {
+		effect = {
+			if = {
+				limit = {
+					ig:ig_landowners = {
+						ig_approval >= 10
+					}
+				}
+				change_variable = {
+					name = ig_land_fav_pos1_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_landowners = {
+						ig_approval >= 15
+					}
+				}
+				change_variable = {
+					name = ig_land_fav_pos1_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_landowners = {
+						ig_approval < 5
+					}
+				}
+				change_variable = {
+					name = ig_land_fav_pos1_var
+					subtract = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_landowners = {
+						ig_approval <= 0
+					}
+				}
+				change_variable = {
+					name = ig_land_fav_pos1_var
+					subtract = 2
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_landowners = {
+						ig_approval <= -5
+					}
+				}
+				change_variable = {
+					name = ig_land_fav_pos1_var
+					subtract = 3
+				}
+			}
+		}
+	}
+
+	complete = {
+		# If-else clause to avoid errors because of missing variable before JE activates
+		trigger_if = {
+			limit = { exists = var:ig_land_fav_pos1_var }
+			scope:journal_entry = { is_goal_complete = yes }
+		}
+		trigger_else = {
+			custom_tooltip = je_br_ig_land_fav_pos1_goal
+		}
+		ig:ig_landowners = {
+			ig_approval >= 10
+		}
+	}
+
+	on_complete = {
+		trigger_event = {
+			id = ig_land_br.2
+		}
+	}
+
+	current_value = {
+		value = root.var:ig_land_fav_pos1_var
+	}
+
+	goal_add_value = {
+		value = 120
+	}
+	
+	fail = {
+		custom_tooltip = {
+			text = pos1_var_fail
+			var:ig_land_fav_pos1_var < 0
+		}
+	}
+	
+	timeout = 5000
+
+	progressbar = yes
+
+	weight = 10000
+	should_be_pinned_by_default = yes
+}
+# <5 unhappy = unhappy
+je_br_ig_land_fav_neg1 = {
+	icon = "gfx/interface/icons/generic_icons/disapproval_icon.dds"
+
+	is_shown_when_inactive = {
+	}
+
+	possible = {
+	}
+
+	immediate = {
+		set_variable = {
+			name = ig_land_fav_neg1_var
+			value = 1
+		}
+	}
+	on_monthly_pulse = {
+		effect = {
+			if = {
+				limit = {
+					ig:ig_landowners = {
+						ig_approval <= -5
+					}
+				}
+				change_variable = {
+					name = ig_land_fav_neg1_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_landowners = {
+						ig_approval <= -10
+					}
+				}
+				change_variable = {
+					name = ig_land_fav_neg1_var
+					add = 3
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_landowners = {
+						ig_approval <= -16
+					}
+				}
+				change_variable = {
+					name = ig_land_fav_neg1_var
+					add = 5
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_landowners = {
+						ig_approval >= 1
+					}
+				}
+				change_variable = {
+					name = ig_land_fav_neg1_var
+					subtract = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_landowners = {
+						ig_approval >= 5
+					}
+				}
+				change_variable = {
+					name = ig_land_fav_neg1_var
+					subtract = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_landowners = {
+						ig_approval >= 10
+					}
+				}
+				change_variable = {
+					name = ig_land_fav_neg1_var
+					subtract = 3
+				}
+			}
+		}
+	}
+
+	complete = {
+		# If-else clause to avoid errors because of missing variable before JE activates
+		trigger_if = {
+			limit = { exists = var:ig_land_fav_neg1_var }
+			scope:journal_entry = { is_goal_complete = yes }
+		}
+		trigger_else = {
+			custom_tooltip = je_br_ig_land_fav_neg1_goal
+		}
+		ig:ig_landowners = {
+			ig_approval <= -5
+		}
+	}
+
+	on_complete = {
+		trigger_event = {
+			id = ig_land_br.3
+		}
+	}
+
+	current_value = {
+		value = root.var:ig_land_fav_neg1_var
+	}
+
+	goal_add_value = {
+		value = 60
+	}
+	
+	fail = {
+		custom_tooltip = {
+			text = neg1_var_fail
+			var:ig_land_fav_neg1_var < 0
+		}
+	}
+
+	timeout = 3000
+	
+	progressbar = yes
+
+	weight = 10000
+	should_be_pinned_by_default = yes
+}
+# ^2y unhappy = less legit
+je_br_ig_land_fav_neg2 = {
+	icon = "gfx/interface/icons/generic_icons/in_opposition_icon.dds"
+
+	is_shown_when_inactive = {
+	}
+
+	possible = {
+	}
+
+	immediate = {
+		set_variable = {
+			name = ig_land_fav_neg2_var
+			value = 4
+		}
+	}
+	on_monthly_pulse = {
+		effect = {
+			if = {
+				limit = {
+					ig:ig_landowners = {
+						ig_approval <= -5
+					}
+				}
+				change_variable = {
+					name = ig_land_fav_neg2_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_landowners = {
+						ig_approval <= -8
+					}
+				}
+				change_variable = {
+					name = ig_land_fav_neg2_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_landowners = {
+						ig_approval <= -10
+					}
+				}
+				change_variable = {
+					name = ig_land_fav_neg2_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_landowners = {
+						ig_approval <= -14
+					}
+				}
+				change_variable = {
+					name = ig_land_fav_neg2_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_landowners = {
+						ig_approval <= -16
+					}
+				}
+				change_variable = {
+					name = ig_land_fav_neg2_var
+					add = 2
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_landowners = {
+						ig_approval >= 1
+					}
+				}
+				change_variable = {
+					name = ig_land_fav_neg2_var
+					subtract = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_landowners = {
+						ig_approval >= 5
+					}
+				}
+				change_variable = {
+					name = ig_land_fav_neg2_var
+					subtract = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_landowners = {
+						ig_approval >= 10
+					}
+				}
+				change_variable = {
+					name = ig_land_fav_neg2_var
+					subtract = 3
+				}
+			}
+		}
+	}
+
+	complete = {
+		# If-else clause to avoid errors because of missing variable before JE activates
+		trigger_if = {
+			limit = { exists = var:ig_land_fav_neg2_var }
+			scope:journal_entry = { is_goal_complete = yes }
+		}
+		trigger_else = {
+			custom_tooltip = je_br_ig_land_fav_neg1_goal
+		}
+		ig:ig_landowners = {
+			ig_approval <= -5
+		}
+	}
+
+	on_complete = {
+		trigger_event = {
+			id = ig_land_br.4
+		}
+	}
+
+	current_value = {
+		value = root.var:ig_land_fav_neg2_var
+	}
+
+	goal_add_value = {
+		value = 45
+	}
+	
+	fail = {
+		custom_tooltip = {
+			text = neg1_var_fail
+			var:ig_land_fav_neg2_var < 0
+		}
+	}
+	
+	timeout = 1200
+	
+	progressbar = yes
+
+	weight = 10000
+	should_be_pinned_by_default = yes
+}
+# 2y ^ unhappy = republic
+je_br_ig_land_fav_neg3 = {
+	icon = "gfx/interface/icons/alert_icons/radicalizing.dds"
+
+	is_shown_when_inactive = {
+	}
+
+	possible = {
+	}
+
+	immediate = {
+		set_variable = {
+			name = ig_land_fav_neg3_var
+			value = 4
+		}
+	}
+	on_monthly_pulse = {
+		effect = {
+			if = {
+				limit = {
+					ig:ig_landowners = {
+						ig_approval <= -5
+					}
+				}
+				change_variable = {
+					name = ig_land_fav_neg3_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_landowners = {
+						ig_approval <= -8
+					}
+				}
+				change_variable = {
+					name = ig_land_fav_neg3_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_landowners = {
+						ig_approval <= -10
+					}
+				}
+				change_variable = {
+					name = ig_land_fav_neg3_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_landowners = {
+						ig_approval <= -14
+					}
+				}
+				change_variable = {
+					name = ig_land_fav_neg3_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_landowners = {
+						ig_approval <= -16
+					}
+				}
+				change_variable = {
+					name = ig_land_fav_neg3_var
+					add = 2
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_landowners = {
+						ig_approval >= 1
+					}
+				}
+				change_variable = {
+					name = ig_land_fav_neg3_var
+					subtract = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_landowners = {
+						ig_approval >= 5
+					}
+				}
+				change_variable = {
+					name = ig_land_fav_neg3_var
+					subtract = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_landowners = {
+						ig_approval >= 10
+					}
+				}
+				change_variable = {
+					name = ig_land_fav_neg3_var
+					subtract = 3
+				}
+			}
+		}
+	}
+
+	complete = {
+		# If-else clause to avoid errors because of missing variable before JE activates
+		trigger_if = {
+			limit = { exists = var:ig_land_fav_neg3_var }
+			scope:journal_entry = { is_goal_complete = yes }
+		}
+		trigger_else = {
+			custom_tooltip = je_br_ig_land_fav_neg1_goal
+		}
+		ig:ig_armed_forces = {
+			ig_approval <= -5
+		}
+	}
+
+	on_complete = {
+		trigger_event = {
+			id = ig_land_br.5
+		}
+	}
+
+	current_value = {
+		value = root.var:ig_land_fav_neg3_var
+	}
+
+	goal_add_value = {
+		value = 45
+	}
+	
+	fail = {
+		custom_tooltip = {
+			text = neg1_var_fail
+			var:ig_land_fav_neg3_var < 0
+		}
+	}
+	
+	timeout = 1200
+	
+	progressbar = yes
+
+	weight = 10000
+	should_be_pinned_by_default = yes
+}
+
+
+# +10 happy = happy
+je_br_ig_chu_fav_pos1 = {
+	icon = "gfx/interface/icons/generic_icons/approval_icon.dds"
+
+	is_shown_when_inactive = {
+	}
+
+	possible = {
+	}
+
+	immediate = {
+		set_variable = {
+			name = ig_chu_fav_pos1_var
+			value = 1
+		}
+	}
+	on_monthly_pulse = {
+		effect = {
+			if = {
+				limit = {
+					ig:ig_devout = {
+						ig_approval >= 10
+					}
+				}
+				change_variable = {
+					name = ig_chu_fav_pos1_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_devout = {
+						ig_approval >= 15
+					}
+				}
+				change_variable = {
+					name = ig_chu_fav_pos1_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_devout = {
+						ig_approval < 5
+					}
+				}
+				change_variable = {
+					name = ig_chu_fav_pos1_var
+					subtract = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_devout = {
+						ig_approval <= 0
+					}
+				}
+				change_variable = {
+					name = ig_chu_fav_pos1_var
+					subtract = 2
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_devout = {
+						ig_approval <= -5
+					}
+				}
+				change_variable = {
+					name = ig_chu_fav_pos1_var
+					subtract = 3
+				}
+			}
+		}
+	}
+
+	complete = {
+		# If-else clause to avoid errors because of missing variable before JE activates
+		trigger_if = {
+			limit = { exists = var:ig_chu_fav_pos1_var }
+			scope:journal_entry = { is_goal_complete = yes }
+		}
+		trigger_else = {
+			custom_tooltip = je_br_ig_chu_fav_pos1_goal
+		}
+		ig:ig_devout = {
+			ig_approval >= 10
+		}
+	}
+
+	on_complete = {
+		trigger_event = {
+			id = ig_devout_br.2
+		}
+	}
+
+	current_value = {
+		value = root.var:ig_chu_fav_pos1_var
+	}
+
+	goal_add_value = {
+		value = 120
+	}
+	
+	fail = {
+		custom_tooltip = {
+			text = pos1_var_fail
+			var:ig_chu_fav_pos1_var < 0
+		}
+	}
+	
+	timeout = 5000
+
+	progressbar = yes
+
+	weight = 10000
+	should_be_pinned_by_default = yes
+}
+# <5 unhappy = unhappy
+je_br_ig_chu_fav_neg1 = {
+	icon = "gfx/interface/icons/generic_icons/disapproval_icon.dds"
+
+	is_shown_when_inactive = {
+	}
+
+	possible = {
+	}
+
+	immediate = {
+		set_variable = {
+			name = ig_chu_fav_neg1_var
+			value = 1
+		}
+	}
+	on_monthly_pulse = {
+		effect = {
+			if = {
+				limit = {
+					ig:ig_devout = {
+						ig_approval <= -5
+					}
+				}
+				change_variable = {
+					name = ig_chu_fav_neg1_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_devout = {
+						ig_approval <= -10
+					}
+				}
+				change_variable = {
+					name = ig_chu_fav_neg1_var
+					add = 3
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_devout = {
+						ig_approval <= -16
+					}
+				}
+				change_variable = {
+					name = ig_chu_fav_neg1_var
+					add = 5
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_devout = {
+						ig_approval >= 1
+					}
+				}
+				change_variable = {
+					name = ig_chu_fav_neg1_var
+					subtract = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_devout = {
+						ig_approval >= 5
+					}
+				}
+				change_variable = {
+					name = ig_chu_fav_neg1_var
+					subtract = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_devout = {
+						ig_approval >= 10
+					}
+				}
+				change_variable = {
+					name = ig_chu_fav_neg1_var
+					subtract = 3
+				}
+			}
+		}
+	}
+
+	complete = {
+		# If-else clause to avoid errors because of missing variable before JE activates
+		trigger_if = {
+			limit = { exists = var:ig_chu_fav_neg1_var }
+			scope:journal_entry = { is_goal_complete = yes }
+		}
+		trigger_else = {
+			custom_tooltip = je_br_ig_chu_fav_neg1_goal
+		}
+		ig:ig_devout = {
+			ig_approval <= -5
+		}
+	}
+
+	on_complete = {
+		trigger_event = {
+			id = ig_devout_br.3
+		}
+	}
+
+	current_value = {
+		value = root.var:ig_chu_fav_neg1_var
+	}
+
+	goal_add_value = {
+		value = 60
+	}
+	
+	fail = {
+		custom_tooltip = {
+			text = neg1_var_fail
+			var:ig_chu_fav_neg1_var < 0
+		}
+	}
+
+	timeout = 3000
+	
+	progressbar = yes
+
+	weight = 10000
+	should_be_pinned_by_default = yes
+}
+# ^2y unhappy = less legit
+je_br_ig_chu_fav_neg2 = {
+	icon = "gfx/interface/icons/generic_icons/in_opposition_icon.dds"
+
+	is_shown_when_inactive = {
+	}
+
+	possible = {
+	}
+
+	immediate = {
+		set_variable = {
+			name = ig_chu_fav_neg2_var
+			value = 4
+		}
+	}
+	on_monthly_pulse = {
+		effect = {
+			if = {
+				limit = {
+					ig:ig_devout = {
+						ig_approval <= -5
+					}
+				}
+				change_variable = {
+					name = ig_chu_fav_neg2_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_devout = {
+						ig_approval <= -8
+					}
+				}
+				change_variable = {
+					name = ig_chu_fav_neg2_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_devout = {
+						ig_approval <= -10
+					}
+				}
+				change_variable = {
+					name = ig_chu_fav_neg2_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_devout = {
+						ig_approval <= -14
+					}
+				}
+				change_variable = {
+					name = ig_chu_fav_neg2_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_devout = {
+						ig_approval <= -16
+					}
+				}
+				change_variable = {
+					name = ig_chu_fav_neg2_var
+					add = 2
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_devout = {
+						ig_approval >= 1
+					}
+				}
+				change_variable = {
+					name = ig_chu_fav_neg2_var
+					subtract = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_devout = {
+						ig_approval >= 5
+					}
+				}
+				change_variable = {
+					name = ig_chu_fav_neg2_var
+					subtract = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_devout = {
+						ig_approval >= 10
+					}
+				}
+				change_variable = {
+					name = ig_chu_fav_neg2_var
+					subtract = 3
+				}
+			}
+		}
+	}
+
+	complete = {
+		# If-else clause to avoid errors because of missing variable before JE activates
+		trigger_if = {
+			limit = { exists = var:ig_chu_fav_neg2_var }
+			scope:journal_entry = { is_goal_complete = yes }
+		}
+		trigger_else = {
+			custom_tooltip = je_br_ig_chu_fav_neg1_goal
+		}
+		ig:ig_devout = {
+			ig_approval <= -5
+		}
+	}
+
+	on_complete = {
+		trigger_event = {
+			id = ig_devout_br.4
+		}
+	}
+
+	current_value = {
+		value = root.var:ig_chu_fav_neg2_var
+	}
+
+	goal_add_value = {
+		value = 45
+	}
+	
+	fail = {
+		custom_tooltip = {
+			text = neg1_var_fail
+			var:ig_chu_fav_neg2_var < 0
+		}
+	}
+	
+	timeout = 1200
+	
+	progressbar = yes
+
+	weight = 10000
+	should_be_pinned_by_default = yes
+}
+# 2y ^ unhappy = republic
+je_br_ig_chu_fav_neg3 = {
+	icon = "gfx/interface/icons/alert_icons/radicalizing.dds"
+
+	is_shown_when_inactive = {
+	}
+
+	possible = {
+	}
+
+	immediate = {
+		set_variable = {
+			name = ig_chu_fav_neg3_var
+			value = 4
+		}
+	}
+	on_monthly_pulse = {
+		effect = {
+			if = {
+				limit = {
+					ig:ig_devout = {
+						ig_approval <= -5
+					}
+				}
+				change_variable = {
+					name = ig_chu_fav_neg3_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_devout = {
+						ig_approval <= -8
+					}
+				}
+				change_variable = {
+					name = ig_chu_fav_neg3_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_devout = {
+						ig_approval <= -10
+					}
+				}
+				change_variable = {
+					name = ig_chu_fav_neg3_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_devout = {
+						ig_approval <= -14
+					}
+				}
+				change_variable = {
+					name = ig_chu_fav_neg3_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_devout = {
+						ig_approval <= -16
+					}
+				}
+				change_variable = {
+					name = ig_chu_fav_neg3_var
+					add = 2
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_devout = {
+						ig_approval >= 1
+					}
+				}
+				change_variable = {
+					name = ig_chu_fav_neg3_var
+					subtract = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_devout = {
+						ig_approval >= 5
+					}
+				}
+				change_variable = {
+					name = ig_chu_fav_neg3_var
+					subtract = 1
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_devout = {
+						ig_approval >= 10
+					}
+				}
+				change_variable = {
+					name = ig_chu_fav_neg3_var
+					subtract = 3
+				}
+			}
+		}
+	}
+
+	complete = {
+		# If-else clause to avoid errors because of missing variable before JE activates
+		trigger_if = {
+			limit = { exists = var:ig_chu_fav_neg3_var }
+			scope:journal_entry = { is_goal_complete = yes }
+		}
+		trigger_else = {
+			custom_tooltip = je_br_ig_chu_fav_neg1_goal
+		}
+		ig:ig_devout = {
+			ig_approval <= -5
+		}
+	}
+
+	on_complete = {
+		trigger_event = {
+			id = ig_devout_br.5
+		}
+	}
+
+	current_value = {
+		value = root.var:ig_chu_fav_neg3_var
+	}
+
+	goal_add_value = {
+		value = 45
+	}
+	
+	fail = {
+		custom_tooltip = {
+			text = neg1_var_fail
+			var:ig_chu_fav_neg3_var < 0
+		}
+	}
+	
+	timeout = 1200
+	
+	progressbar = yes
+
+	weight = 10000
+	should_be_pinned_by_default = yes
+}

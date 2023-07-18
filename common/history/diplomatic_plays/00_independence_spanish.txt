@@ -1,0 +1,122 @@
+﻿DIPLOMATIC_PLAYS = {
+	c:SPA = {
+		create_diplomatic_play = {
+			name = indepedence
+			target_country = c:PRG
+			war = yes
+			
+			type = dp_annex_war
+
+			add_war_goal = {
+				holder = c:PRG
+				type = independence
+				target_country = c:SPA
+			}
+		}			
+	}
+	c:SPA = {
+		create_diplomatic_play = {
+			name = indepedence
+			target_country = c:ARG
+			war = yes
+			
+			type = dp_annex_war
+
+			add_war_goal = {
+				holder = c:ARG
+				type = independence
+				target_country = c:SPA
+			}
+		}			
+	}
+	c:SPA = {
+		create_diplomatic_play = {
+			name = indepedence
+			target_country = c:VNZ
+			war = yes
+			
+			type = dp_annex_war
+
+			add_war_goal = {
+				holder = c:VNZ
+				type = independence
+				target_country = c:SPA
+			}
+		}			
+	}
+	c:SPA = {
+		create_diplomatic_play = {
+			name = indepedence
+			target_country = c:BOL
+			war = yes
+			
+			type = dp_annex_war
+
+			add_war_goal = {
+				holder = c:BOL
+				type = independence
+				target_country = c:SPA
+			}
+		}			
+	}
+	c:SPA = {
+		create_diplomatic_play = {
+			name = indepedence
+			target_country = c:PEU
+			war = yes
+			
+			type = dp_annex_war
+
+			add_war_goal = {
+				holder = c:PEU
+				type = independence
+				target_country = c:SPA
+			}
+		}			
+	}
+	c:SPA = {
+		create_diplomatic_play = {
+			name = indepedence
+			target_country = c:ECU
+			war = yes
+			
+			type = dp_annex_war
+
+			add_war_goal = {
+				holder = c:ECU
+				type = independence
+				target_country = c:SPA
+			}
+		}			
+	}
+	c:SPA = {
+		create_diplomatic_play = {
+			name = indepedence
+			target_country = c:CLM
+			war = yes
+			
+			type = dp_annex_war
+
+			add_war_goal = {
+				holder = c:CLM
+				type = independence
+				target_country = c:SPA
+			}
+		}			
+	}
+	c:SPA = {
+		create_diplomatic_play = {
+			name = indepedence
+			target_country = c:MEX
+			war = yes
+			
+			type = dp_annex_war
+
+			add_war_goal = {
+				holder = c:MEX
+				type = independence
+				target_country = c:SPA
+			}
+		}			
+	}
+}

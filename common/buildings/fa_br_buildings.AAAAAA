@@ -1,0 +1,33 @@
+﻿# Should be built during the game, not present at start
+building_christ_the_redeemer = {
+	building_group = bg_monuments
+	texture = "gfx/interface/icons/building_icons/statue_of_liberty.dds"
+	expandable = no
+	buildable = yes
+	downsizeable = no
+	unique = yes
+	locator = "christ_the_redeemer_locator"
+	
+	entity_not_constructed = { }
+	entity_under_construction = { }
+	entity_constructed = { "wonder_christ_the_redeemer_01_entity"}
+	
+	city_gfx_interactions = {
+		clear_size_area = yes
+		size = 2
+	}
+	
+	production_method_groups = {
+		pmg_base_christ
+	}
+	possible = {
+		error_check = {
+			severity = invalid
+			this = {
+				state_region = s:STATE_RIO_DE_JANEIRO
+			}
+		}
+	}
+	
+	#required_construction = construction_cost_monument
+}

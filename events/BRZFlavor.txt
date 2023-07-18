@@ -1,0 +1,201 @@
+namespace = angola
+
+angola.1 = {
+	type = country_event
+	placement = s:STATE_angola.region_state:POR
+
+	title = angola.1.t
+	desc = angola.1.d
+	flavor = angola.1.f
+
+	duration = 3
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_signed_contract.bk1"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/signed_contract"
+
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	trigger = {
+		exists = c:BRZ
+	  c:BRZ = ROOT
+	  NOT = { has_variable = end_of_empire }
+	}
+
+	immediate = {
+	}
+
+	option = {
+		name = angola.1.a
+
+		s:STATE_SOUTH_ANGOLA.region_state:POR = {
+			set_state_owner = c:BRZ
+		}
+		s:STATE_NORTH_ANGOLA.region_state:POR = {
+			set_state_owner = c:BRZ
+		}
+	}
+	option = { # perhaps another time
+	name = angola.1.b
+
+		s:STATE_SOUTH_ANGOLA.region_state:POR = {
+			set_state_owner = c:BRZ
+		}
+		s:STATE_NORTH_ANGOLA.region_state:POR = {
+			set_state_owner = c:BRZ
+		}
+		s:STATE_ZAMBEZIA.region_state:POR = {
+			set_state_owner = c:BRZ
+		}
+		s:STATE_MOCAMBIQUE.region_state:POR = {
+			set_state_owner = c:BRZ
+		}
+		s:STATE_LOURENCO_MARQUES.region_state:POR = {
+			set_state_owner = c:BRZ
+		}
+		s:STATE_ZAMBEZIA.region_state:POR = {
+			set_state_owner = c:BRZ
+		}
+		
+	}
+	option = {
+		name = angola.1.c
+		default_option = yes
+	}
+}
+angola.2 = {
+	
+	type = country_event
+	placement = s:STATE_angola.region_state:POR
+
+	title = angola.2.t
+	desc = angola.2.d
+	flavor = angola.2.f
+
+	duration = 3
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_signed_contract.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/signed_contract"
+
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	trigger = {
+		
+	  exists = c:POR
+	  c:POR = ROOT
+	  NOT = { has_variable = end_of_empire }
+   
+	}
+
+	immediate = {
+	}
+
+	option = {
+		name = angola.2.a
+	}
+	option = { # perhaps another time
+	name = angola.2.b
+
+		
+	}
+	option = {
+		name = angola.2.c
+		
+	}
+}
+angola.3 = {
+	
+	type = country_event
+	placement = s:STATE_angola.region_state:POR
+
+	title = angola.3.t
+	desc = angola.3.d
+	flavor = angola.3.f
+
+	duration = 3
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_signed_contract.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/signed_contract"
+
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	trigger = {
+		
+	  exists = c:POR
+	  c:POR = ROOT
+	  NOT = { has_variable = end_of_empire }
+   
+	}
+
+	immediate = {
+	}
+
+	option = {
+		name = angola.3.a
+	}
+	option = { # perhaps another time
+	name = angola.3.b
+
+		
+	}
+	option = {
+		name = angola.3.c
+		
+	}
+}
+angola.4 = {
+	
+	type = country_event
+	placement = s:STATE_angola.region_state:POR
+
+	title = angola.4.t
+	desc = angola.4.d
+	flavor = angola.4.f
+
+	duration = 3
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_signed_contract.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/signed_contract"
+
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	trigger = {
+		
+	  exists = c:POR
+	  c:POR = ROOT
+	  NOT = { has_variable = end_of_empire }
+   
+	}
+
+	immediate = {
+	}
+
+	option = {
+		name = angola.4.a
+	}
+	option = { # perhaps another time
+	name = angola.4.b
+
+		
+	}
+	option = {
+		name = angola.4.c
+		
+	}
+}
+
