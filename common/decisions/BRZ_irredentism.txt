@@ -10,29 +10,19 @@ independence_or_death_brazil = {
 
 
    when_taken = {
-			add_accepted_culture = bakongo
-			add_accepted_culture = ovimbundu
-			add_accepted_culture = lunda
-			add_accepted_culture = nguni
-			add_accepted_culture = sena
-			add_accepted_culture = shona
-			add_accepted_culture = swahili
+
 	set_variable = {
 		name = independence_or_death
 		value = yes
 		}
 		trigger_event = {
-			id = 
+			id = indepedence_or_death.1
 			days = 0
 			popup = yes
-		}
-	add_modifier = {
-		name = indepedence_or_death_modifier
 		}
    }
 
 }
-
 
 brazil_angola = {
 	is_shown = {
@@ -65,6 +55,31 @@ brazil_angola = {
 		}
 	add_modifier = {
 		name = angola_e_nossa_modifier
+		}
+   }
+
+}
+
+brazil_annex_bolivia = {
+	is_shown = {
+	  exists = c:BRZ
+	  c:BRZ = ROOT
+		NOT = { has_variable = brazil_bolivia_annex }
+   }
+   possible = {
+	}
+
+
+   when_taken = {
+
+	set_variable = {
+		name = brazil_bolivia_annex
+		value = yes
+		}
+		trigger_event = {
+			id = brazil_annex_bolivia.1
+			days = 0
+			popup = yes
 		}
    }
 

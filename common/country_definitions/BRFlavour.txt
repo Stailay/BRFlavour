@@ -1,0 +1,11 @@
+﻿PBR = {
+	color = { 0 191 255 }
+	
+	country_type = colonial
+
+	tier = principality
+	
+	cultures = { brazilian portuguese }
+	capital = STATE_RIO_DE_JANEIRO
+
+}

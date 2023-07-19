@@ -1,0 +1,6 @@
+c:POR = {	
+	create_diplomatic_pact = {
+		country = c:PBR
+		type = customs_union
+	}
+}

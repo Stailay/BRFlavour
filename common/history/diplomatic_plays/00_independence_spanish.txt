@@ -47,21 +47,6 @@
 	c:SPA = {
 		create_diplomatic_play = {
 			name = indepedence
-			target_country = c:BOL
-			war = yes
-			
-			type = dp_annex_war
-
-			add_war_goal = {
-				holder = c:BOL
-				type = independence
-				target_country = c:SPA
-			}
-		}			
-	}
-	c:SPA = {
-		create_diplomatic_play = {
-			name = indepedence
 			target_country = c:PEU
 			war = yes
 			

@@ -1,0 +1,6 @@
+c:SPA = {	
+	create_diplomatic_pact = {
+		country = c:BOL
+		type = personal_union
+	}
+}

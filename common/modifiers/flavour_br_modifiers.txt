@@ -1,4 +1,22 @@
 ﻿angola_e_nossa_modifier = {
-	prestige = 30
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	country_prestige_add = -20
+}
+independence_or_death_modifier = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	country_prestige_add = 40
 	country_military_tech_cost_mult = -0.05
+	country_society_weekly_innovation_mult = 0.15
+}
+priority_of_production = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	country_production_tech_spread_mult = -0.1
+}
+priority_of_military = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	country_military_tech_spread_mult = -0.1
+}
+priority_of_society = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	country_society_tech_spread_mult = -0.1
 }
